@@ -1,11 +1,69 @@
+body {
+	margin: 0;
+}
+
 .container {
 	text-align: center;
 	width: 100%;
 }
 
-.button {
-	padding: 5px;
-	background: teal;
-	border: 2px solid black;
-	display: inline-block;
+.row {
+	width: 100%;
+	text-align: center;
+	align-content: center;
 }
+
+#notes-input {
+	width: 400px;
+	height: 150px;
+}
+
+#user-buttons {
+	width: 400px;
+	margin: 0 auto;
+}
+
+.user-button {
+	padding: 5px;
+	border: 2px solid black;
+	border-radius: 5px;
+	display: inline-block;
+	width: 45%;
+	cursor: pointer;
+}
+
+#submit-button {
+	background: lightgreen;
+}
+
+#print-button {
+	background: white;
+	color: grey;
+	cursor: not-allowed;
+}
+
+.card {
+	width: 200px;
+	height: 150px;
+	box-sizing: border-box;
+	text-align: center;
+	display: inline-block;
+	vertical-align: top;
+	margin: 10px;
+	padding: 10px;
+}
+
+.prompt {
+	border: 2px solid black;
+}
+
+.answer {
+	border: 2px solid green;
+}
+
+@media print {
+  #notes-input, #main-header, #user-buttons {
+    display: none;
+  }
+}
+
