@@ -7,11 +7,11 @@
       <title>Flash Cards for Maria</title>
 
       <!-- STYLESHEETS -->
+      <link href="https://fonts.googleapis.com/css?family=Pangolin|Yanone+Kaffeesatz" rel="stylesheet">
       <link rel="stylesheet" href="/styles/style.css">
       
 
       <!-- VENDOR SCRIPTS -->
-      
 
       <!-- APPLICATION SCRIPTS -->
       <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
@@ -20,19 +20,44 @@
   </head>
   <body>
   <div class="container">
-    <h1 id="main-header">Flash Cards for Maria</h1>
-    <form>
-    	<textarea name="notes" id="notes-input" placeholder="Enter your notes here"></textarea>
-    </form>
-      <div id="user-buttons">
-        <div class="user-button" id="submit-button">Submit</div>
-        <div class="user-button" id="print-button">Print</div>
-      </div>
-    <div id="flash-cards">
-      
+    <div class="header">
+      <h1 id="main-header" class="yanone">Flash Cards Maker</h1>
     </div>
-</div>
-
-
+    <div id="instructions-container">
+      <h2>Creating Your Flash Cards</h2>
+      <ol id="instructions">
+        <li>Each individual question must be separated by a <b>~</b> (except after the last one).</li>
+        <li>Within each question, there will be a prompt and an answer</li>
+        <li>The prompt is what will appear in the front of the flash card</li>
+        <li>The answer is what will appear in the back of the flash card</li>
+        <li>The answer must be contained within a pair of <b>|</b> (aka pipes)</li>
+        <li>If you find a mistake upon submission, simply edit the text box again and resubmit</li>
+        <li>Hit the Print button when ready</li>
+      </ol>
+      <div id="card-example" hidden>
+        <p><b>Example input:</b></p> 
+        <p class="pad-left">On the remote icy planet of Hoth, Han Solo described a |tauntaun| as not only smelly on the outside, but also on the inside. ~ <br>
+        One does not simply walk into |Mordor|. Its Black Gates are guarded by more than just Orcs.
+        </p>     
+        <p><b>Example output:</b> 
+            <p class="pad-left"><b>Prompt:</b> On the remote icy planet of Hoth, Han Solo described a _____ as not only smelly on the outside, but also on the inside.</p>
+            <p class="pad-left"><b>Answer:</b> tauntaun</p>
+            <p class="pad-left"><b>Prompt:</b> One does not simply walk into _____. Its Black Gates are guarded by more than just Orcs.</p>
+            <p class="pad-left"><b>Answer:</b> Mordor</p>
+        </p>
+      </div>
+      <div id="example-buttons" class="button-row">
+        <div class="user-button" id="show-button">Show Example</div>
+        <div class="user-button" id="hide-button">Hide Example</div>
+      </div>
+    </div>
+  	<textarea name="notes" id="notes-input" placeholder="Enter your notes here"></textarea>
+    <div id="user-buttons" class="button-row">
+      <div class="user-button" id="submit-button">Submit</div>
+      <div class="user-button" id="print-button">Print</div>
+    </div>
+    <table id="flash-cards">
+    </table>
+  </div>
   </body>
 </html>

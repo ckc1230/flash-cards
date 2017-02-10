@@ -1,5 +1,11 @@
 body {
 	margin: 0;
+	background: #7988CD;
+	font-family: 'Pangolin', cursive;
+}
+
+.yanone {
+	font-family: 'Yanone Kaffeesatz', sans-serif;
 }
 
 .container {
@@ -7,20 +13,85 @@ body {
 	width: 100%;
 }
 
-.row {
-	width: 100%;
-	text-align: center;
-	align-content: center;
+#main-header {
+	font-size: 60px;
+	margin: 0;
+	line-height: 100px;
+	color: white;
+	text-shadow: 0 0 10px black;
+}
+
+.header {
+	background: url('http://i.imgur.com/lWb9a8l.jpg');
+	height: 100px;
+	width: 80%;
+	margin: 15px auto 0 auto;
+	border-radius: 10px;
+	border: 2px solid #293F4F;
+}
+
+#instructions-container {
+	width: 600px;
+	padding: 20px 40px;
+	margin: 15px auto 20px auto;
+	font-size: 15px;
+	background: white;
+	border-radius: 10px;
+	border: 2px solid #293F4F;
+	background: #FBF8EB;
+}
+
+#instructions-container h2 {
+	margin-top: 0;
+}
+
+#instructions {
+	text-align: left;
+	margin: 0 auto;
+	list-style-position:inside;
+}
+
+.pad-left {
+	padding-left: 30px;
+}
+
+#card-example {
+	text-align: left;
+}
+
+#card-example ul {
+	list-style: none;
 }
 
 #notes-input {
+	width: 600px;
+	height: 200px;
+	font-size: 12px;
+	border: 2px solid #293F4F;
+	padding: 15px;
+	box-sizing: border-box;
+}
+
+.button-row {
 	width: 400px;
-	height: 150px;
+	margin: 15px auto 0 auto;
+}
+
+#hide-button {
+	display: none;
+	background: #EB91B4;
+	color: white;
+	text-shadow: 0 0 8px black;
+}
+
+#show-button {
+	background: #EB91B4;	
+	color: white;
+	text-shadow: 0 0 8px black;
 }
 
 #user-buttons {
-	width: 400px;
-	margin: 0 auto;
+	margin-bottom: 20px;
 }
 
 .user-button {
@@ -30,6 +101,7 @@ body {
 	display: inline-block;
 	width: 45%;
 	cursor: pointer;
+	margin: 0 auto;
 }
 
 #submit-button {
@@ -42,28 +114,70 @@ body {
 	cursor: not-allowed;
 }
 
+#flash-cards {
+	margin: 0 auto;
+	border-spacing: 10px;
+}
+
+td {
+	vertical-align: middle;
+}
+
 .card {
-	width: 200px;
-	height: 150px;
+	width: 300px;
+	height: 180px;
 	box-sizing: border-box;
 	text-align: center;
-	display: inline-block;
-	vertical-align: top;
+	display: table-cell;
 	margin: 10px;
-	padding: 10px;
+	padding: 25px;
+	border: 2px solid black;
+	background: white;
+	font-family: "Times New Roman", Times, serif;
 }
 
 .prompt {
-	border: 2px solid black;
+	border-color: black
+	vertical-align: middle;
 }
 
 .answer {
-	border: 2px solid green;
+	border-color: green;
+	box-shadow: 0 0 10px lightgreen;
 }
 
 @media print {
-  #notes-input, #main-header, #user-buttons {
+	@page { margin: 0; }
+  .header, #instructions-container, #notes-input, #main-header, #user-buttons {
     display: none;
   }
+	table { page-break-inside:auto }
+  tr    { page-break-inside:avoid; page-break-after:auto }
+  #flash-cards > tr:last-child > td {
+  	border-bottom: 0;
+	}
+
+	.container {
+		width: 100%;
+		margin: 0;
+	}
+
+	#flash-cards {
+		border-spacing: 0;
+		font-size: 18px;
+	}
+  .card {
+		box-sizing: border-box;
+		text-align: center;
+		display: table-cell;
+		vertical-align: middle;
+		padding: 30px;
+		width: 50%;
+		height: 210px;
+		border:none;
+	}
+	.prompt, .answer {
+		border: 1px solid black;
+	}
 }
 
