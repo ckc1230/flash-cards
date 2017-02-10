@@ -70,6 +70,12 @@ body {
 	border: 2px solid #293F4F;
 	padding: 15px;
 	box-sizing: border-box;
+	border-radius: 10px;
+}
+
+#notes-input:focus {
+	outline: none;
+	box-shadow: 0 0 15px #EB91B4;
 }
 
 .button-row {
