@@ -1,0 +1,11 @@
+.container {
+	text-align: center;
+	width: 100%;
+}
+
+.button {
+	padding: 5px;
+	background: teal;
+	border: 2px solid black;
+	display: inline-block;
+}

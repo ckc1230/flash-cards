@@ -7,7 +7,7 @@
       <title>Flash Cards for Maria</title>
 
       <!-- STYLESHEETS -->
-      <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="/styles/style.css">
       
 
       <!-- VENDOR SCRIPTS -->
@@ -15,15 +15,22 @@
 
       <!-- APPLICATION SCRIPTS -->
       <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-      <script type="text/javascript" src="app.js"></script>
+      <script type="text/javascript" src="/scripts/app.js"></script>
 
-      
-      
   </head>
   <body>
-  <h1>Flash Cards for Maria</h1>
-  <form>
-  	<textarea name="notes" id="notes-input" placeholder="Enter your notes here" cols="30" rows="10"></textarea>
-  </form>
+  <div class="container">
+    <h1>Flash Cards for Maria</h1>
+    <form>
+    	<textarea name="notes" id="notes-input" placeholder="Enter your notes here" cols="30" rows="10"></textarea>
+    </form>
+      <div class="button" id="submit-button">Submit</div>
+
+    <div id="flash-cards">
+      
+    </div>
+</div>
+
+
   </body>
 </html>
