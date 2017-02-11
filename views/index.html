@@ -23,40 +23,94 @@
     <div class="header">
       <h1 id="main-header" class="yanone">Flash Cards Maker</h1>
     </div>
-    <div id="instructions-container">
-      <h2>Creating Your Flash Cards</h2>
-      <ol id="instructions">
-        <li>Each individual question must be separated by a <b>~</b> (except after the last one).</li>
-        <li>Within each question, there will be a prompt and an answer</li>
-        <li>The prompt is what will appear on the front of the flash card</li>
-        <li>The answer is what will appear on the back of the flash card</li>
-        <li>The answer must be contained within a pair of <b>|</b> (aka pipes)</li>
-        <li>If you find a mistake upon submission, simply edit the text box again and resubmit</li>
-        <li>Hit the Print button when ready</li>
-      </ol>
-      <div id="card-example" hidden>
-        <p><b>Example input:</b></p> 
-        <p class="pad-left">On the remote icy planet of Hoth, Han Solo described a |tauntaun| as not only smelly on the outside, but also on the inside. ~ <br>
-        One does not simply walk into |Mordor|. Its Black Gates are guarded by more than just Orcs.
-        </p>     
-        <p><b>Example output:</b> 
-            <p class="pad-left"><b>Prompt:</b> On the remote icy planet of Hoth, Han Solo described a _____ as not only smelly on the outside, but also on the inside.</p>
-            <p class="pad-left"><b>Answer:</b> tauntaun</p>
-            <p class="pad-left"><b>Prompt:</b> One does not simply walk into _____. Its Black Gates are guarded by more than just Orcs.</p>
-            <p class="pad-left"><b>Answer:</b> Mordor</p>
-        </p>
+
+    <div id="options">
+      <div class="option active" id="fill-ins-nav">Fill In</div>
+      <div class="option" id="terms-nav">Terms and Definition</div>
+    </div>
+
+
+
+    <div id="fill-ins-container">
+      <div id="fill-ins-instructions-container">
+        <h2>Creating Your Flash Cards</h2>
+        <ol id="fill-ins-instructions">
+          <li>Each individual question must be separated by a <b>~</b> (except after the last one).</li>
+          <li>Within each question, there will be a prompt and an answer</li>
+          <li>The prompt is what will appear on the front of the flash card</li>
+          <li>The answer is what will appear on the back of the flash card</li>
+          <li>The answer must be contained within a pair of <b>|</b> (aka pipes)</li>
+          <li>If you find a mistake upon submission, simply edit the text box again and resubmit</li>
+          <li>Hit the Print button when ready</li>
+        </ol>
+        <div id="card-example" hidden>
+          <p><b>Example input:</b></p> 
+          <p class="pad-left">On the remote icy planet of Hoth, Han Solo described a |tauntaun| as not only smelly on the outside, but also on the inside. ~ <br>
+          One does not simply walk into |Mordor|. Its Black Gates are guarded by more than just Orcs.
+          </p>     
+          <p><b>Example output:</b> 
+              <p class="pad-left"><b>Prompt:</b> On the remote icy planet of Hoth, Han Solo described a _____ as not only smelly on the outside, but also on the inside.</p>
+              <p class="pad-left"><b>Answer:</b> tauntaun</p>
+              <p class="pad-left"><b>Prompt:</b> One does not simply walk into _____. Its Black Gates are guarded by more than just Orcs.</p>
+              <p class="pad-left"><b>Answer:</b> Mordor</p>
+          </p>
+        </div>
+        <div id="example-buttons" class="button-row">
+          <div class="user-button" id="show-button">Show Example</div>
+          <div class="user-button" id="hide-button">Hide Example</div>
+        </div>
       </div>
-      <div id="example-buttons" class="button-row">
-        <div class="user-button" id="show-button">Show Example</div>
-        <div class="user-button" id="hide-button">Hide Example</div>
+
+
+    	<textarea name="notes" id="notes-input" placeholder="Enter your notes here"></textarea>
+      <div id="user-buttons" class="button-row">
+        <div class="user-button" id="submit-fill-ins-button">Submit</div>
+        <div class="user-button print-button">Print</div>
       </div>
     </div>
-  	<textarea name="notes" id="notes-input" placeholder="Enter your notes here"></textarea>
-    <div id="user-buttons" class="button-row">
-      <div class="user-button" id="submit-button">Submit</div>
-      <div class="user-button" id="print-button">Print</div>
+
+    <div id="terms-container" hidden>
+      <div id="terms-instructions-container">
+          <h2>Creating Your Flash Cards</h2>
+          <ol id="terms-instructions">
+            <li>Each individual question contains 2 input fields: TERM and DEFINITION.</li>
+            <li>When printing, each page can fit 5 flash cards.</li>
+          </ol>
+        </div>
+        
+        <div class="terms-row">
+          <input class="text-input" type="text" placeholder="Term">
+          <textarea name="definition" class="definition-input" placeholder="Enter the definition here"></textarea>
+        </div>        
+        <div class="terms-row">
+          <input class="text-input" type="text" placeholder="Term">
+          <textarea name="definition" class="definition-input" placeholder="Enter the definition here"></textarea>
+        </div>        
+        <div class="terms-row">
+          <input class="text-input" type="text" placeholder="Term">
+          <textarea name="definition" class="definition-input" placeholder="Enter the definition here"></textarea>
+        </div>        
+        <div class="terms-row">
+          <input class="text-input" type="text" placeholder="Term">
+          <textarea name="definition" class="definition-input" placeholder="Enter the definition here"></textarea>
+        </div>        
+        <div class="terms-row">
+          <input class="text-input" type="text" placeholder="Term">
+          <textarea name="definition" class="definition-input" placeholder="Enter the definition here"></textarea>
+        </div>
+
+        <div id="user-buttons" class="button-row">
+          <div class="user-button" id="submit-terms-button">Submit</div>
+          <div class="user-button print-button">Print</div>
+        </div>
+
     </div>
-    <table id="flash-cards">
+
+
+
+    <table id="fill-ins">
+    </table>    
+    <table id="terms">
     </table>
   </div>
   </body>
