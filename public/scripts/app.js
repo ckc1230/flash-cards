@@ -2,24 +2,45 @@ $(document).ready(function() {
     console.log( "ready!" );
     $('#submit-fill-ins-button').click(processFillInsSubmission);
     $('#submit-terms-button').click(processTermsSubmission);
+    $('#submit-custom-button').click(processCustomSubmission);
     $('#show-button').click(toggleExample);
     $('#hide-button').click(toggleExample);
     $('#terms-nav').click(showTerms);
     $('#fill-ins-nav').click(showFillIns);
+    $('#custom-nav').click(showCustom);
 });
 
 function showTerms() {
   $('#fill-ins-container').hide();
+  $('#custom-container').hide();
   $('#terms-container').show();
   $('#fill-ins-nav').removeClass('active');
+  $('#custom-nav').removeClass('active');
   $('#terms-nav').addClass('active');
+  $('#fill-ins').empty();
+  $('#custom').empty();
 }
 
 function showFillIns() {
   $('#terms-container').hide();
+  $('#custom-container').hide();
   $('#fill-ins-container').show();
   $('#terms-nav').removeClass('active');
+  $('#custom-nav').removeClass('active');
   $('#fill-ins-nav').addClass('active');
+  $('#terms').empty();
+  $('#custom').empty();
+}
+
+function showCustom() {
+  $('#terms-container').hide();
+  $('#fill-ins-container').hide();
+  $('#custom-container').show();
+  $('#terms-nav').removeClass('active');
+  $('#fill-ins-nav').removeClass('active');
+  $('#custom-nav').addClass('active');
+  $('#fill-ins').empty();
+  $('#terms').empty();
 }
 
 function processFillInsSubmission() {
@@ -71,6 +92,31 @@ function processTermsSubmission() {
   }, 1000);
   $('.print-button').css({"cursor": "pointer", "color": "black"});
   $('.print-button').click(openPrint);
+}
+
+function processCustomSubmission() {
+  $('#custom').empty();
+  if ($('#custom-input').val()) {
+    var notes = $('#custom-input').val();
+    var questions = notes.split('~');
+    questions.forEach(function(question, i) {
+      var parts = question.split('|');
+      var row = $("<tr>", {"class": "row"});
+      var promptDiv = $("<td>", {"class": "card prompt"});
+      promptDiv.text(parts[0]);
+      var answerDiv = $("<td>", {"class": "card answer"});
+      answerDiv.text(parts[1]);
+
+      $('#custom').append(row);
+      $('#custom .row:nth-child('+(i+1)+')').append(promptDiv);
+      $('#custom .row:nth-child('+(i+1)+')').append(answerDiv);
+    })
+    $('html, body').animate({
+        scrollTop: $("#custom").offset().top
+    }, 1000);
+    $('.print-button').css({"cursor": "pointer", "color": "black"});
+    $('.print-button').click(openPrint);
+  }
 }
 
 function toggleExample() {

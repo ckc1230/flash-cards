@@ -21,13 +21,13 @@ input, textarea {
 	width: 80%;
 	margin: 20px auto 0 auto;
 	background: #293F4F;
-	padding: 5px 0;
+	padding: 5px;
 	border-radius: 8px;
 }
 .option {
 	display: inline-block;
 	background: #293F4F;
-	width: 48%;
+	width: 32%;
 	color: white;
 	padding: 5px;
 	border-radius: 5px;
@@ -55,7 +55,7 @@ input, textarea {
 	border: 2px solid #293F4F;
 }
 
-#fill-ins-instructions-container, #terms-instructions-container {
+#fill-ins-instructions-container, #terms-instructions-container, #custom-instructions-container {
 	width: 600px;
 	padding: 20px 40px;
 	margin: 15px auto 20px auto;
@@ -66,17 +66,17 @@ input, textarea {
 	background: #FBF8EB;
 }
 
-#fill-ins-instructions-container h2, #terms-instructions-container h2 {
+#fill-ins-instructions-container h2, #terms-instructions-container h2, #custom-instructions-container h2 {
 	margin-top: 0;
 }
 
-#fill-ins-instructions, #terms-instructions {
+#fill-ins-instructions, #terms-instructions, #custom-instructions {
 	text-align: left;
 	margin: 0 auto;
 	list-style-position:inside;
 }
 
-#terms-container {
+#terms-container, #custom-container {
 	display: none;
 }
 
@@ -92,7 +92,7 @@ input, textarea {
 	list-style: none;
 }
 
-#notes-input {
+#notes-input, #custom-input {
 	width: 600px;
 	height: 200px;
 	font-size: 12px;
@@ -174,7 +174,7 @@ input, textarea {
 	margin: 0 auto;
 }
 
-#submit-fill-ins-button, #submit-terms-button {
+#submit-fill-ins-button, #submit-terms-button, #submit-custom-button {
 	background: lightgreen;
 }
 
@@ -184,7 +184,7 @@ input, textarea {
 	cursor: not-allowed;
 }
 
-#fill-ins, #terms {
+#fill-ins, #terms, #custom {
 	margin: 0 auto;
 	border-spacing: 10px;
 }
@@ -219,7 +219,8 @@ td {
 
 @media print {
 	@page { margin: 0; }
-  .header, #fill-ins-instructions-container, 	#terms-container, #options, #notes-input, #main-header, #user-buttons {
+  .header, #fill-ins-instructions-container, #terms-container, #custom-container, 
+  #options, #notes-input, #main-header, #user-buttons {
     display: none !important;
   }
 
@@ -231,7 +232,7 @@ td {
 		margin: 0;
 	}
 
-	#fill-ins, #terms {
+	#fill-ins, #terms, #custom {
 		width: 100%;
 		border-spacing: 0;
 		font-size: 18px;

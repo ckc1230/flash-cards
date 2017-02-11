@@ -28,6 +28,7 @@
     <div id="options">
       <div class="option active" id="fill-ins-nav">Fill In</div>
       <div class="option" id="terms-nav">Terms and Definition</div>
+      <div class="option" id="custom-nav">Custom</div>
     </div>
 
 
@@ -107,11 +108,39 @@
 
     </div>
 
+    <div id="custom-container">
+      <div id="custom-instructions-container">
+          <h2>Terms and Definitions</h2>
+          <ol id="custom-instructions">
+            <li>Each individual question must be separated by a <b>~</b> (except after the last one).</li>
+            <li>The front side and the back side must be separated by one | (pipe)</li>
+            <li>If you find a mistake upon submission, simply edit the text box again and resubmit</li>
+            <li>Hit the Print button when ready</li>
+          </ol>
+          <p>Example: <br>
+            This is the front of the first flash card. | <br>
+            This is the back of the first flash card. ~ <br>
+            This is the front of the second flash card. | <br>
+            This is the back of the second flash card.<br>
+          </p>
+        </div>
+       
+        <textarea name="notes" id="custom-input" placeholder="Enter your notes here"></textarea>
+
+        <div id="user-buttons" class="button-row">
+          <div class="user-button" id="submit-custom-button">Submit</div>
+          <div class="user-button print-button">Print</div>
+        </div>
+
+    </div>
+
 
 
     <table id="fill-ins">
     </table>    
     <table id="terms">
+    </table>    
+    <table id="custom">
     </table>
   </div>
   </body>
