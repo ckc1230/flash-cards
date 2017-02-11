@@ -197,7 +197,6 @@ td {
 	width: 300px;
 	height: 180px;
 	box-sizing: border-box;
-	text-align: center;
 	display: table-cell;
 	margin: 10px;
 	padding: 25px;
@@ -210,11 +209,13 @@ td {
 .prompt {
 	border-color: black
 	vertical-align: middle;
+	text-align: center;
 }
 
 .answer {
 	border-color: green;
 	box-shadow: 0 0 10px lightgreen;
+	text-align: left;
 }
 
 .footer {
@@ -249,7 +250,6 @@ td {
 	}
   .card {
 		box-sizing: border-box;
-		text-align: center;
 		display: table-cell;
 		vertical-align: middle;
 		padding: 30px;
