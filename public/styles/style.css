@@ -76,6 +76,10 @@ input, textarea {
 	list-style-position:inside;
 }
 
+#terms-container {
+	display: none;
+}
+
 .pad-left {
 	padding-left: 30px;
 }
@@ -214,9 +218,10 @@ td {
 
 @media print {
 	@page { margin: 0; }
-  .header, #fill-ins-instructions-container, #terms-container, #notes-input, #main-header, #user-buttons {
-    display: none;
+  .header, #fill-ins-instructions-container, 	#terms-container, #options, #notes-input, #main-header, #user-buttons {
+    display: none !important;
   }
+
 	table { page-break-inside:auto }
   tr    { page-break-inside:avoid; page-break-after:auto }
 
@@ -224,11 +229,9 @@ td {
 		width: 100%;
 		margin: 0;
 	}
-	#terms {
-		width: 100%;
-	}
 
 	#fill-ins, #terms {
+		width: 100%;
 		border-spacing: 0;
 		font-size: 18px;
 	}
