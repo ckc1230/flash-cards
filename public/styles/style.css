@@ -21,8 +21,8 @@ input, textarea {
 	width: 80%;
 	margin: 20px auto 0 auto;
 	background: #293F4F;
-	padding: 5px;
-	border-radius: 5px;
+	padding: 5px 0;
+	border-radius: 8px;
 }
 .option {
 	display: inline-block;
