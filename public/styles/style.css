@@ -217,9 +217,18 @@ td {
 	box-shadow: 0 0 10px lightgreen;
 }
 
+.footer {
+	margin: 20px auto 0 auto;
+	background: #293F4F;
+	color: white;
+	padding: 5px;
+	height: 50px;
+	line-height: 50px;
+}
+
 @media print {
 	@page { margin: 0; }
-  .header, #fill-ins-instructions-container, #terms-container, #custom-container, 
+  .header, .footer, #fill-ins-instructions-container, #terms-container, #custom-container, 
   #options, #notes-input, #main-header, #user-buttons {
     display: none !important;
   }
