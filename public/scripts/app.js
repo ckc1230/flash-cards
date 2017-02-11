@@ -77,15 +77,17 @@ function processTermsSubmission() {
   definitions = definitions.map(function() { return this.value; })
 
   for (var i = 0; i<5; i++) {
-    var row = $("<tr>", {"class": "row"});
-    var promptDiv = $("<td>", {"class": "card prompt"});
-    promptDiv.text(terms[i]);
-    var answerDiv = $("<td>", {"class": "card answer"});
-    answerDiv.text(definitions[i]);
+    if (terms[i] && definitions[i]) {
+      var row = $("<tr>", {"class": "row"});
+      var promptDiv = $("<td>", {"class": "card prompt"});
+      promptDiv.text(terms[i]);
+      var answerDiv = $("<td>", {"class": "card answer"});
+      answerDiv.text(definitions[i]);
 
-    $('#terms').append(row);
-    $('#terms .row:nth-child('+(i+1)+')').append(promptDiv);
-    $('#terms .row:nth-child('+(i+1)+')').append(answerDiv);
+      $('#terms').append(row);
+      $('#terms .row:last-child').append(promptDiv);
+      $('#terms .row:last-child').append(answerDiv);
+    }
   }
   $('html, body').animate({
         scrollTop: $("#terms").offset().top
