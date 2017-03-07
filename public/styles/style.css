@@ -54,7 +54,6 @@ input, textarea {
 	margin-top: 5px;
 	text-decoration: none;
 	background: lightgreen;
-	box-sizing: border-box;
 	text-shadow: 0 0 10px black;
 }
 
@@ -217,9 +216,10 @@ input, textarea {
 }
 
 .print-button {
-	background: white;
+	background: #EB91B4;
 	color: grey;
 	cursor: not-allowed;
+	width: 30%;
 }
 
 #fill-ins, #terms, #custom {
@@ -263,15 +263,29 @@ td {
 }
 
 .edit-prompt-button {
-	background: rgba(0,0,255,0.5);
+	background: #293F4F;
 }
 
-.edit-answer-button, .update-prompt-button, .update-answer-button {
-	background: rgba(0,255,0,0.5);
+.edit-answer-button {
+	background: #FBF8EB;
+	color: black;
 }
 
-.delete-card-button, .cancel-prompt-button, .cancel-answer-button {
-	background: rgba(255,0,0,0.5);
+.update-prompt-button, .update-answer-button {
+	background: lightgreen;
+	color: white;
+	border: 1px solid black;
+	text-shadow: 0 0 5px black;
+}
+
+.cancel-prompt-button, .cancel-answer-button {
+	border: 1px solid black;
+	text-shadow: 0 0 5px black;
+	background: #EB91B4;
+}
+
+.delete-card-button {
+	background: #EB91B4;
 }
 
 .edit-card {
@@ -313,6 +327,16 @@ td {
   min-width: 200px;
 }
 
+#preview-modal-content {
+	margin: 5% auto;
+	padding: 20px;
+}
+
+#close-preview {
+	margin-top: 15px;
+	width: 30%;
+}
+
 #guide-input {
 	display: block;
 	border-radius: 5px;
@@ -341,7 +365,7 @@ td {
 @media print {
 	@page { margin: 0; }
   .header, .footer, #fill-ins-instructions-container, #terms-container, #custom-container, 
-  #options, #notes-input, #main-header, #user-buttons {
+  #options, #notes-input, #main-header, #user-buttons, .user-button {
     display: none !important;
   }
 
@@ -351,6 +375,13 @@ td {
 	.container {
 		width: 100%;
 		margin: 0;
+	}
+
+	#preview-modal-content {
+		width: 100%;
+		padding: 0;
+		margin: 0;
+		background: blue;
 	}
 
 	#fill-ins, #terms, #custom {

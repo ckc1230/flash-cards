@@ -55,6 +55,10 @@ function launchGuideModal(questions) {
 }
 
 function processFillInsPreview() {
+  $('#preview-modal').show();
+  $('#close-preview').click(function() {
+    $('#preview-modal').hide();
+  })
   $('#fill-ins').empty();
   if ($('#notes-input').val()) {
     var notes = $('#notes-input').val();
@@ -73,10 +77,7 @@ function processFillInsPreview() {
       $('#fill-ins .row:nth-child('+(i+1)+')').append(answerDiv);
 
     })
-    $('html, body').animate({
-        scrollTop: $("#fill-ins").offset().top
-    }, 1000);
-    $('.print-button').css({"cursor": "pointer", "color": "black", "background": "#EB91B4"});
+    $('.print-button').css({"cursor": "pointer", "color": "black"});
     $('.print-button').click(openPrint);
   }
 }
@@ -111,6 +112,10 @@ function processFillInsSave() {
 }
 
 function processTermsPreview() {
+  $('#preview-modal').show();
+  $('#close-preview').click(function() {
+    $('#preview-modal').hide();
+  })
   $('#terms').empty();
   var terms = $('.text-input');
   var definitions = $('.definition-input');
@@ -130,9 +135,6 @@ function processTermsPreview() {
       $('#terms .row:last-child').append(answerDiv);
     }
   }
-  $('html, body').animate({
-        scrollTop: $("#terms").offset().top
-  }, 1000);
   $('.print-button').css({"cursor": "pointer", "color": "black"});
   $('.print-button').click(openPrint);
 }
@@ -170,6 +172,10 @@ function processTermsSave() {
 }
 
 function processCustomPreview() {
+  $('#preview-modal').show();
+  $('#close-preview').click(function() {
+    $('#preview-modal').hide();
+  })
   $('#custom').empty();
   if ($('#custom-input').val()) {
     var notes = $('#custom-input').val();
@@ -187,10 +193,6 @@ function processCustomPreview() {
       $('#custom .row:nth-child('+(i+1)+')').append(answerDiv);
 
     })
-
-    $('html, body').animate({
-        scrollTop: $("#custom").offset().top
-    }, 1000);
     $('.print-button').css({"cursor": "pointer", "color": "black"});
     $('.print-button').click(openPrint);
   }

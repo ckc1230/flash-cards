@@ -75,7 +75,6 @@
         <div id="user-buttons" class="button-row">
           <div class="user-button" id="preview-fill-ins-button">Preview</div>
           <div class="user-button" id="save-fill-ins-modal">Save</div>
-          <div class="user-button print-button">Print</div>
         </div>
       </div>
 
@@ -113,7 +112,6 @@
         <div id="user-buttons" class="button-row">
           <div class="user-button" id="preview-terms-button">Preview</div>
           <div class="user-button" id="save-terms-modal">Save</div>
-          <div class="user-button print-button">Print</div>
         </div>
       </div>
 
@@ -137,16 +135,22 @@
         <div id="user-buttons" class="button-row">
           <div class="user-button" id="preview-custom-button">Preview</div>
           <div class="user-button" id="save-custom-modal">Save</div>
-          <div class="user-button print-button">Print</div>
+          
         </div>
       </div>
 
-      <table id="fill-ins">
-      </table>    
-      <table id="terms">
-      </table>    
-      <table id="custom">
-      </table>
+      <div id="preview-modal" class="modal">
+        <div id="preview-modal-content" class="modal-content">
+          <table id="fill-ins">
+          </table>    
+          <table id="terms">
+          </table>    
+          <table id="custom">
+          </table>
+          <div class="user-button print-button">Print</div>
+          <div id="close-preview" class="user-button">Close</div>
+        </div>
+      </div>
 
       <div id="guide-modal" class="modal">
         <div class="modal-content">
