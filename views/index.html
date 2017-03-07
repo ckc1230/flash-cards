@@ -38,11 +38,9 @@
         <div class="option active" id="fill-ins-nav">Fill In</div>
         <div class="option" id="terms-nav">Terms and Definition</div>
         <div class="option" id="custom-nav">Custom</div>
+        <div><a id="to-cards" class="option" href="/cards">Cards</a></div>
       </div>
 
-      <div>
-        <a href="/cards">Cards</a>
-      </div>
 
       <div id="fill-ins-container">
         <div id="fill-ins-instructions-container">
@@ -75,7 +73,8 @@
         </div>
       	<textarea name="notes" id="notes-input" placeholder="Enter your notes here"></textarea>
         <div id="user-buttons" class="button-row">
-          <div class="user-button" id="submit-fill-ins-button">Submit</div>
+          <div class="user-button" id="preview-fill-ins-button">Preview</div>
+          <div class="user-button" id="save-fill-ins-modal">Save</div>
           <div class="user-button print-button">Print</div>
         </div>
       </div>
@@ -112,7 +111,8 @@
           <textarea name="definition" class="definition-input" placeholder="Enter the definition here"></textarea>
         </div>
         <div id="user-buttons" class="button-row">
-          <div class="user-button" id="submit-terms-button">Submit</div>
+          <div class="user-button" id="preview-terms-button">Preview</div>
+          <div class="user-button" id="save-terms-modal">Save</div>
           <div class="user-button print-button">Print</div>
         </div>
       </div>
@@ -135,7 +135,8 @@
         </div>
         <textarea name="notes" id="custom-input" placeholder="Enter your notes here"></textarea>
         <div id="user-buttons" class="button-row">
-          <div class="user-button" id="submit-custom-button">Submit</div>
+          <div class="user-button" id="preview-custom-button">Preview</div>
+          <div class="user-button" id="save-custom-modal">Save</div>
           <div class="user-button print-button">Print</div>
         </div>
       </div>
@@ -146,6 +147,18 @@
       </table>    
       <table id="custom">
       </table>
+
+      <div id="guide-modal" class="modal">
+        <div class="modal-content">
+          <h1>Enter Subject</h1>
+          <input type="text" placeholder="e.g. LOST Characters" id="guide-input">
+          <div class="user-button" id="save-custom-button">Save</div>
+          <div class="user-button" id="save-terms-button">Save</div>
+          <div class="user-button" id="save-fill-ins-button">Save</div>
+        </div>
+      </div>
+
+
       <footer class="footer">
         Created by Chris for Maria
       </footer>

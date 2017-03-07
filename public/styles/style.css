@@ -36,17 +36,26 @@ input, textarea {
 	width: 80%;
 	margin: 20px auto 0 auto;
 	background: #293F4F;
-	padding: 5px;
+	padding: 5px 0;
 	border-radius: 8px;
 }
 .option {
 	display: inline-block;
 	background: #293F4F;
-	width: 32%;
+	width: 31%;
 	color: white;
 	padding: 5px;
 	border-radius: 5px;
 	cursor: pointer;
+}
+
+#to-cards {
+	width: 31%;
+	margin-top: 5px;
+	text-decoration: none;
+	background: lightgreen;
+	box-sizing: border-box;
+	text-shadow: 0 0 10px black;
 }
 
 .active {
@@ -177,6 +186,7 @@ input, textarea {
 
 #user-buttons {
 	margin-bottom: 20px;
+	width: 75%;
 }
 
 .user-button {
@@ -184,13 +194,26 @@ input, textarea {
 	border: 2px solid black;
 	border-radius: 5px;
 	display: inline-block;
-	width: 45%;
+	width: 265px;
 	cursor: pointer;
 	margin: 0 auto;
 }
 
-#submit-fill-ins-button, #submit-terms-button, #submit-custom-button {
+#preview-fill-ins-button, #preview-terms-button, #preview-custom-button {
+	background: #FBF8EB;
+	display: block;
+	width: 550px;
+	margin-bottom: 5px;
+}
+
+
+#save-fill-ins-modal, #save-terms-modal, #save-custom-modal {
 	background: lightgreen;
+}
+
+#save-fill-ins-button, #save-terms-button, #save-custom-button {
+	background: lightgreen;
+	display: none;
 }
 
 .print-button {
@@ -266,6 +289,37 @@ td {
 	border-color: green;
 	box-shadow: 0 0 10px lightgreen;
 	text-align: left;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 0 20px 50px 20px;
+  border: 1px solid #888;
+  width: 500px;
+  min-width: 200px;
+}
+
+#guide-input {
+	display: block;
+	border-radius: 5px;
+	width: 250px;
+	padding: 5px;
+	margin: 20px auto;
+	font-size: 18px;
 }
 
 .footer {

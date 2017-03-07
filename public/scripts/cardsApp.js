@@ -110,7 +110,6 @@ function handleEditAnswer() {
   });
 }
 
-
 function handleDeleteCard() {
   var cardId = $(this).closest('.row').attr('id');
   $.ajax({

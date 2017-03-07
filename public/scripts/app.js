@@ -1,8 +1,14 @@
 $(document).ready(function() {
     console.log( "ready!" );
-    $('#submit-fill-ins-button').click(processFillInsSubmission);
-    $('#submit-terms-button').click(processTermsSubmission);
-    $('#submit-custom-button').click(processCustomSubmission);
+    $('#preview-fill-ins-button').click(processFillInsPreview);
+    $('#preview-terms-button').click(processTermsPreview);
+    $('#preview-custom-button').click(processCustomPreview);
+    $('#save-fill-ins-button').click(processFillInsSave);
+    $('#save-terms-button').click(processTermsSave);
+    $('#save-custom-button').click(processCustomSave);
+    $('#save-fill-ins-modal').click(function() {launchGuideModal('fill-ins')});
+    $('#save-terms-modal').click(function() {launchGuideModal('terms')});
+    $('#save-custom-modal').click(function() {launchGuideModal('custom')});
     $('#show-button').click(toggleExample);
     $('#hide-button').click(toggleExample);
     $('#terms-nav').click(showTerms);
@@ -43,7 +49,12 @@ function showCustom() {
   $('#terms').empty();
 }
 
-function processFillInsSubmission() {
+function launchGuideModal(questions) {
+    $('#guide-modal').show();
+    $('#save-'+questions+'-button').show();
+}
+
+function processFillInsPreview() {
   $('#fill-ins').empty();
   if ($('#notes-input').val()) {
     var notes = $('#notes-input').val();
@@ -61,8 +72,32 @@ function processFillInsSubmission() {
       $('#fill-ins .row:nth-child('+(i+1)+')').append(promptDiv);
       $('#fill-ins .row:nth-child('+(i+1)+')').append(answerDiv);
 
+    })
+    $('html, body').animate({
+        scrollTop: $("#fill-ins").offset().top
+    }, 1000);
+    $('.print-button').css({"cursor": "pointer", "color": "black", "background": "#EB91B4"});
+    $('.print-button').click(openPrint);
+  }
+}
+
+function processFillInsSave() {
+  $('#guide-modal').hide();
+  if ($('#notes-input').val()) {
+    var questionSubject = $('#guide-input').val();
+    var notes = $('#notes-input').val();
+    var questions = notes.split('~');
+    questions.forEach(function(question, i) {
+      var parts = question.split('|');
+      var prompt = parts[0] + '_____' + parts[2];
+      var row = $("<tr>", {"class": "row"});
+      var promptDiv = $("<td>", {"class": "card prompt"});
+      promptDiv.text(prompt);
+      var answerDiv = $("<td>", {"class": "card answer"});
+      answerDiv.text(parts[1]);
+
       var newCard = {
-        subject: 'medicine',
+        subject: questionSubject,
         prompt: prompt,
         response: parts[1]
       }
@@ -70,17 +105,12 @@ function processFillInsSubmission() {
       $.post('/api/cards', newCard, function(album) {
         console.log('cards after POST', newCard);
       });
-
     })
-    $('html, body').animate({
-        scrollTop: $("#fill-ins").offset().top
-    }, 1000);
-    $('.print-button').css({"cursor": "pointer", "color": "black"});
-    $('.print-button').click(openPrint);
-  }
+    alert(questions.length + ' new flash-card(s) saved!')
+  }  
 }
 
-function processTermsSubmission() {
+function processTermsPreview() {
   $('#terms').empty();
   var terms = $('.text-input');
   var definitions = $('.definition-input');
@@ -98,16 +128,6 @@ function processTermsSubmission() {
       $('#terms').append(row);
       $('#terms .row:last-child').append(promptDiv);
       $('#terms .row:last-child').append(answerDiv);
-
-      var newCard = {
-        subject: 'medicine',
-        prompt: terms[i],
-        response: definitions[i]
-      }
-
-      $.post('/api/cards', newCard, function(album) {
-        console.log('cards after POST', newCard);
-      });
     }
   }
   $('html, body').animate({
@@ -117,7 +137,39 @@ function processTermsSubmission() {
   $('.print-button').click(openPrint);
 }
 
-function processCustomSubmission() {
+function processTermsSave() {
+  $('#guide-modal').hide();
+  var questionSubject = $('#guide-input').val();
+  var terms = $('.text-input');
+  var definitions = $('.definition-input');
+  var termsCount = 0;
+  terms = terms.map(function() { return this.value; });
+  definitions = definitions.map(function() { return this.value; });
+
+  for (var i = 0; i<5; i++) {
+    if (terms[i] && definitions[i]) {
+      var row = $("<tr>", {"class": "row"});
+      var promptDiv = $("<td>", {"class": "card prompt"});
+      promptDiv.text(terms[i]);
+      var answerDiv = $("<td>", {"class": "card answer"});
+      answerDiv.text(definitions[i]);
+
+      var newCard = {
+        subject: questionSubject,
+        prompt: terms[i],
+        response: definitions[i]
+      }
+
+      $.post('/api/cards', newCard, function(album) {
+        console.log('cards after POST', newCard);
+      });
+      termsCount++;
+    }
+  }
+  alert(termsCount + ' new flash-card(s) saved!')
+}
+
+function processCustomPreview() {
   $('#custom').empty();
   if ($('#custom-input').val()) {
     var notes = $('#custom-input').val();
@@ -134,8 +186,32 @@ function processCustomSubmission() {
       $('#custom .row:nth-child('+(i+1)+')').append(promptDiv);
       $('#custom .row:nth-child('+(i+1)+')').append(answerDiv);
 
+    })
+
+    $('html, body').animate({
+        scrollTop: $("#custom").offset().top
+    }, 1000);
+    $('.print-button').css({"cursor": "pointer", "color": "black"});
+    $('.print-button').click(openPrint);
+  }
+}
+
+function processCustomSave() {
+  $('#guide-modal').hide();
+  if ($('#custom-input').val()) {
+    var questionSubject = $('#guide-input').val();
+    var notes = $('#custom-input').val();
+    var questions = notes.split('~');
+    questions.forEach(function(question, i) {
+      var parts = question.split('|');
+      var row = $("<tr>", {"class": "row"});
+      var promptDiv = $("<td>", {"class": "card prompt"});
+      promptDiv.text(parts[0]);
+      var answerDiv = $("<td>", {"class": "card answer"});
+      answerDiv.text(parts[1]);
+
       var newCard = {
-        subject: 'medicine',
+        subject: questionSubject,
         prompt: parts[0],
         response: parts[1]
       }
@@ -145,12 +221,7 @@ function processCustomSubmission() {
       });
 
     })
-
-    $('html, body').animate({
-        scrollTop: $("#custom").offset().top
-    }, 1000);
-    $('.print-button').css({"cursor": "pointer", "color": "black"});
-    $('.print-button').click(openPrint);
+    alert(questions.length + ' new flashcard(s) saved!')
   }
 }
 

@@ -68,7 +68,6 @@ app.post('/api/cards', function createCard(req, res) {
 
 app.delete('/api/cards/:id', function deleteCard(req, res) {
   db.Card.remove({ _id: req.params.id }, function(err, card) {
-    console.log(req.params.id)
     if (err) { throw err; };
     res.json(card);
   })
