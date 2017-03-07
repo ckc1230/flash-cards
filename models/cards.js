@@ -4,11 +4,9 @@ var Schema = mongoose.Schema;
 var Card = require('./cards');
 
 var CardSchema = new Schema({
+  subject: String,
   prompt: String,
-  response: String,
-  image: String,
-  theme: String,
-  count: Number
+  response: String
 });
 
 var Card = mongoose.model('Card', CardSchema);

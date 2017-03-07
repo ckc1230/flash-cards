@@ -60,6 +60,17 @@ function processFillInsSubmission() {
       $('#fill-ins').append(row);
       $('#fill-ins .row:nth-child('+(i+1)+')').append(promptDiv);
       $('#fill-ins .row:nth-child('+(i+1)+')').append(answerDiv);
+
+      var newCard = {
+        subject: 'medicine',
+        prompt: prompt,
+        response: parts[1]
+      }
+      
+      $.post('/api/cards', newCard, function(album) {
+        console.log('cards after POST', newCard);
+      });
+
     })
     $('html, body').animate({
         scrollTop: $("#fill-ins").offset().top
@@ -87,6 +98,16 @@ function processTermsSubmission() {
       $('#terms').append(row);
       $('#terms .row:last-child').append(promptDiv);
       $('#terms .row:last-child').append(answerDiv);
+
+      var newCard = {
+        subject: 'medicine',
+        prompt: terms[i],
+        response: definitions[i]
+      }
+
+      $.post('/api/cards', newCard, function(album) {
+        console.log('cards after POST', newCard);
+      });
     }
   }
   $('html, body').animate({
@@ -112,7 +133,19 @@ function processCustomSubmission() {
       $('#custom').append(row);
       $('#custom .row:nth-child('+(i+1)+')').append(promptDiv);
       $('#custom .row:nth-child('+(i+1)+')').append(answerDiv);
+
+      var newCard = {
+        subject: 'medicine',
+        prompt: parts[0],
+        response: parts[1]
+      }
+      
+      $.post('/api/cards', newCard, function(album) {
+        console.log('cards after POST', newCard);
+      });
+
     })
+
     $('html, body').animate({
         scrollTop: $("#custom").offset().top
     }, 1000);

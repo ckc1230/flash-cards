@@ -4,8 +4,23 @@ body {
 	font-family: 'Pangolin', cursive;
 }
 
+a {
+	text-decoration: none;
+}
+
 input, textarea {
 	outline: none;
+}
+
+.subjects {
+	width: 100%;
+	margin: 5px auto;
+	color: white;
+}
+
+.subject-div {
+	width: 48%;
+	display: inline-block;
 }
 
 .yanone {
@@ -38,7 +53,7 @@ input, textarea {
 	background: #EB91B4;
 }
 
-#main-header {
+.main-header {
 	font-size: 60px;
 	margin: 0;
 	line-height: 100px;
@@ -206,6 +221,41 @@ td {
 	white-space: pre-wrap;
 }
 
+.options, .save-options {
+	width: 150px;
+	height: 180px;
+	box-sizing: border-box;
+	display: table-cell;
+	margin: 10px;
+	font-family: 'Yanone Kaffeesatz', sans-serif;
+	color: white;
+}
+
+.options-button {
+	margin: 10px;
+	height: 50px;
+	line-height: 50px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.edit-prompt-button {
+	background: rgba(0,0,255,0.5);
+}
+
+.edit-answer-button, .update-prompt-button, .update-answer-button {
+	background: rgba(0,255,0,0.5);
+}
+
+.delete-card-button, .cancel-prompt-button, .cancel-answer-button {
+	background: rgba(255,0,0,0.5);
+}
+
+.edit-card {
+	width: 80%;
+	height: 130px;
+}
+
 .prompt {
 	border-color: black
 	vertical-align: middle;
@@ -226,6 +276,12 @@ td {
 	height: 50px;
 	line-height: 50px;
 	border-top: 2px solid #EB91B4;
+}
+
+/* CARDS PAGE */
+
+#show-cards-list {
+	margin: 20px auto;
 }
 
 @media print {

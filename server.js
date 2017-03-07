@@ -19,38 +19,73 @@ app.get('/', function homepage(req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-// app.get('/templates/:name', function templates(req, res) {
-//   var name = req.params.name;
-//   res.sendFile(__dirname + '/views/templates/' + name + '.html');
-// });
+app.get('/cards', function homepage(req, res) {
+  res.sendFile(__dirname + '/views/cards.html');
+});
 
 /* API ROUTES */ 
 
-// app.get('/api/ecards', function indexECards(req, res) {
-//   db.ECard.find({}, function(err, allECards) {
-//     if (err) { throw err; };
-//     res.json(allECards);
-//   });
-// });
+app.get('/api/guides', function indexGuides(req, res) {
+  db.Guide.find({}, function(err, allGuides) {
+    if (err) { throw err; };
+    res.json(allGuides);
+  });
+});
 
-// app.get('/api/ecards/:id', function showECard(req, res) {
-//   db.ECard.findById({ _id: req.params.id }, function(err, eCard) {
-//     if (err) { throw err; };
-//     res.json(eCard);
-//   });
-// });
+app.get('/api/cards', function indexGuides(req, res) {
+  db.Card.find({}, function(err, allCards) {
+    if (err) { throw err; };
+    res.json(allCards);
+  });
+});
+
+app.get('/api/guides/:id', function showGuide(req, res) {
+  db.Guide.findById({ _id: req.params.id }, function(err, guide) {
+    if (err) { throw err; };
+    res.json(guide);
+  });
+});
+
+app.get('/api/cards/:id', function showCard(req, res) {
+  db.Card.findById({ _id: req.params.id }, function(err, card) {
+    if (err) { throw err; };
+    res.json(card);
+  });
+});
 
 
-// app.post('/api/ecards', function createECard(req, res) {
-//   var newECard = {
-//     message: req.body.message,
-//     theme: req.body.theme
-//   }
-//   db.ECard.create(newECard, function(err, ecard) {
-//     if (err) { throw err; };
-//     res.json(ecard);
-//   });
-// });
+app.post('/api/cards', function createCard(req, res) {
+  var newCard = {
+    subject: req.body.subject,
+    prompt: req.body.prompt,
+    response: req.body.response
+  }
+  db.Card.create(newCard, function(err, card) {
+    if (err) { throw err; };
+    res.json(card);
+  });
+});
+
+app.delete('/api/cards/:id', function deleteCard(req, res) {
+  db.Card.remove({ _id: req.params.id }, function(err, card) {
+    console.log(req.params.id)
+    if (err) { throw err; };
+    res.json(card);
+  })
+})
+
+app.put('/api/cards/:id', function updateCard(req, res) {
+  db.Card.findOne({_id: req.params.id}, function(err, foundCard) {
+    if (err) { console.log('error', err); }
+    if (req.body.prompt) { foundCard.prompt = req.body.prompt; }
+    if (req.body.response) { foundCard.response = req.body.response; }
+    foundCard.save(function(err, saved) {
+      if(err) { console.log('error', err); }
+      res.json(saved);
+    });
+  });
+});
+
 
 /* SERVER SET UP */ 
 
