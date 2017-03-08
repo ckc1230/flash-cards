@@ -6,14 +6,19 @@ $(document).ready(function() {
     $('#save-fill-ins-button').click(processFillInsSave);
     $('#save-terms-button').click(processTermsSave);
     $('#save-custom-button').click(processCustomSave);
-    $('#save-fill-ins-modal').click(function() {launchGuideModal('fill-ins')});
-    $('#save-terms-modal').click(function() {launchGuideModal('terms')});
-    $('#save-custom-modal').click(function() {launchGuideModal('custom')});
+    $('#save-fill-ins-modal').click(function() {
+       $('#notes-input').val() ? launchGuideModal('fill-ins'): alert('Cannot save empty cards.');
+    });
+    $('#save-terms-modal').click(function() { launchGuideModal('terms') });
+    $('#save-custom-modal').click(function() {
+      $('#custom-input').val() ? launchGuideModal('custom') : alert('Cannot save empty cards.');
+    });
     $('#show-button').click(toggleExample);
     $('#hide-button').click(toggleExample);
     $('#terms-nav').click(showTerms);
     $('#fill-ins-nav').click(showFillIns);
     $('#custom-nav').click(showCustom);
+    $('.print-button').click(openPrint);
 });
 
 function showTerms() {
@@ -55,10 +60,12 @@ function launchGuideModal(questions) {
 }
 
 function processFillInsPreview() {
+  $('#save-fill-ins-modal').css("display", "inline-block");
   $('#preview-modal').show();
   $('#close-preview').click(function() {
     $('#preview-modal').hide();
-  })
+    $('.save-modal-button').hide();
+  });
   $('#fill-ins').empty();
   if ($('#notes-input').val()) {
     var notes = $('#notes-input').val();
@@ -77,8 +84,6 @@ function processFillInsPreview() {
       $('#fill-ins .row:nth-child('+(i+1)+')').append(answerDiv);
 
     })
-    $('.print-button').css({"cursor": "pointer", "color": "black"});
-    $('.print-button').click(openPrint);
   }
 }
 
@@ -107,14 +112,18 @@ function processFillInsSave() {
         console.log('cards after POST', newCard);
       });
     })
-    alert(questions.length + ' new flash-card(s) saved!')
+    alert(questions.length + ' new flash-card(s) saved!');
+    $('.modal').hide();
+    $('.save-modal-button').hide();
   }  
 }
 
 function processTermsPreview() {
+  $('#save-terms-modal').css("display", "inline-block");
   $('#preview-modal').show();
   $('#close-preview').click(function() {
     $('#preview-modal').hide();
+    $('.save-modal-button').hide();
   })
   $('#terms').empty();
   var terms = $('.text-input');
@@ -135,8 +144,6 @@ function processTermsPreview() {
       $('#terms .row:last-child').append(answerDiv);
     }
   }
-  $('.print-button').css({"cursor": "pointer", "color": "black"});
-  $('.print-button').click(openPrint);
 }
 
 function processTermsSave() {
@@ -168,13 +175,17 @@ function processTermsSave() {
       termsCount++;
     }
   }
-  alert(termsCount + ' new flash-card(s) saved!')
+  alert(termsCount + ' new flash-card(s) saved!');
+  $('.modal').hide();
+  $('.save-modal-button').hide();
 }
 
 function processCustomPreview() {
+  $('#save-custom-modal').css("display", "inline-block");
   $('#preview-modal').show();
   $('#close-preview').click(function() {
     $('#preview-modal').hide();
+    $('.save-modal-button').hide();
   })
   $('#custom').empty();
   if ($('#custom-input').val()) {
@@ -193,8 +204,6 @@ function processCustomPreview() {
       $('#custom .row:nth-child('+(i+1)+')').append(answerDiv);
 
     })
-    $('.print-button').css({"cursor": "pointer", "color": "black"});
-    $('.print-button').click(openPrint);
   }
 }
 
@@ -221,9 +230,10 @@ function processCustomSave() {
       $.post('/api/cards', newCard, function(album) {
         console.log('cards after POST', newCard);
       });
-
     })
-    alert(questions.length + ' new flashcard(s) saved!')
+    alert(questions.length + ' new flashcard(s) saved!');
+    $('.modal').hide();
+    $('.save-modal-button').hide();
   }
 }
 

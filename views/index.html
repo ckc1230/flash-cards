@@ -51,8 +51,7 @@
             <li>The prompt is what will appear on the front of the flash card</li>
             <li>The answer is what will appear on the back of the flash card</li>
             <li>The answer must be contained within a pair of <b>|</b> (aka pipes)</li>
-            <li>If you find a mistake upon submission, simply edit the text box again and resubmit</li>
-            <li>Hit the Print button when ready</li>
+            <li>If you find a mistake upon preview, simply edit the text box again and resubmit</li>
           </ol>
           <div id="card-example" hidden>
             <p><b>Example input:</b></p> 
@@ -74,8 +73,7 @@
       	<textarea name="notes" id="notes-input" placeholder="Enter your notes here"></textarea>
         <div id="user-buttons" class="button-row">
           <div class="user-button" id="preview-fill-ins-button">Preview</div>
-          <div class="user-button" id="save-fill-ins-modal">Save</div>
-        </div>
+       </div>
       </div>
 
       <div id="terms-container">
@@ -85,8 +83,7 @@
             <li>Each individual question contains 2 input fields: TERM and DEFINITION.</li>
             <li>When printing, each page can fit 5 flash cards.</li>
             <li>You don't have to fill in all 5 in order to print.</li>
-            <li>If you find a mistake upon submission, simply edit the fields again and resubmit</li>
-            <li>Hit the Print button when ready</li>
+            <li>If you find a mistake upon preview, simply edit the fields again and resubmit</li>
           </ol>
         </div>
         <div class="terms-row">
@@ -111,7 +108,6 @@
         </div>
         <div id="user-buttons" class="button-row">
           <div class="user-button" id="preview-terms-button">Preview</div>
-          <div class="user-button" id="save-terms-modal">Save</div>
         </div>
       </div>
 
@@ -121,8 +117,7 @@
           <ol id="custom-instructions">
             <li>Each individual question must be separated by a <b>~</b> (except after the last one).</li>
             <li>The front side and the back side must be separated by one | (pipe)</li>
-            <li>If you find a mistake upon submission, simply edit the text box again and resubmit</li>
-            <li>Hit the Print button when ready</li>
+            <li>If you find a mistake upon preview, simply edit the text box again and resubmit</li>
           </ol>
           <p>Example: <br>
             This is the front of the first flash card. | <br>
@@ -134,8 +129,6 @@
         <textarea name="notes" id="custom-input" placeholder="Enter your notes here"></textarea>
         <div id="user-buttons" class="button-row">
           <div class="user-button" id="preview-custom-button">Preview</div>
-          <div class="user-button" id="save-custom-modal">Save</div>
-          
         </div>
       </div>
 
@@ -148,6 +141,9 @@
           <table id="custom">
           </table>
           <div class="user-button print-button">Print</div>
+          <div class="user-button save-modal-button" id="save-fill-ins-modal">Save</div>
+          <div class="user-button save-modal-button" id="save-terms-modal">Save</div>
+          <div class="user-button save-modal-button" id="save-custom-modal">Save</div>
           <div id="close-preview" class="user-button">Close</div>
         </div>
       </div>
@@ -156,9 +152,9 @@
         <div class="modal-content">
           <h1>Enter Subject</h1>
           <input type="text" placeholder="e.g. LOST Characters" id="guide-input">
-          <div class="user-button" id="save-custom-button">Save</div>
-          <div class="user-button" id="save-terms-button">Save</div>
-          <div class="user-button" id="save-fill-ins-button">Save</div>
+          <div class="user-button save-modal-button" id="save-custom-button">Submit</div>
+          <div class="user-button save-modal-button" id="save-terms-button">Submit</div>
+          <div class="user-button save-modal-button" id="save-fill-ins-button">Submit</div>
         </div>
       </div>
 

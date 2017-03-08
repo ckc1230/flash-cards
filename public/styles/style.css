@@ -199,15 +199,20 @@ input, textarea {
 }
 
 #preview-fill-ins-button, #preview-terms-button, #preview-custom-button {
-	background: #FBF8EB;
+	background: lightgreen;
 	display: block;
-	width: 550px;
+	width: 250px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 20px;
 	margin-bottom: 5px;
 }
 
 
 #save-fill-ins-modal, #save-terms-modal, #save-custom-modal {
 	background: lightgreen;
+	display: none;
+	width: 30%;
 }
 
 #save-fill-ins-button, #save-terms-button, #save-custom-button {
@@ -217,8 +222,8 @@ input, textarea {
 
 .print-button {
 	background: #EB91B4;
-	color: grey;
-	cursor: not-allowed;
+	color: black;
+	cursor: pointer;
 	width: 30%;
 }
 
