@@ -78,6 +78,7 @@ app.put('/api/cards/:id', function updateCard(req, res) {
     if (err) { console.log('error', err); }
     if (req.body.prompt) { foundCard.prompt = req.body.prompt; }
     if (req.body.response) { foundCard.response = req.body.response; }
+    if (req.body.subject) { foundCard.subject = req.body.subject; }
     foundCard.save(function(err, saved) {
       if(err) { console.log('error', err); }
       res.json(saved);

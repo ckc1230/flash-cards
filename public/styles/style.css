@@ -251,6 +251,7 @@ td {
 
 .options, .save-options {
 	width: 150px;
+	min-width: 150px;
 	height: 180px;
 	box-sizing: border-box;
 	display: table-cell;
@@ -260,11 +261,20 @@ td {
 }
 
 .options-button {
-	margin: 10px;
-	height: 50px;
-	line-height: 50px;
+	margin: 10px 5px 10px 5px;
+	height: 30px;
+	line-height: 30px;
 	border-radius: 5px;
 	cursor: pointer;
+}
+
+.edit-subject-button, .save-subject-button {
+	width: 25%;
+	vertical-align: bottom;
+	font-size: 22px;
+	box-sizing: border-box;
+	display: inline-block;
+	margin-bottom: 0;
 }
 
 .edit-prompt-button {
@@ -291,6 +301,10 @@ td {
 
 .delete-card-button {
 	background: #EB91B4;
+}
+
+.subject-input {
+	padding: 0 10px;
 }
 
 .edit-card {
@@ -363,6 +377,26 @@ td {
 
 /* CARDS PAGE */
 
+#card-list-print {
+	width: 10%;
+	background: lightgreen;
+}
+
+#subjects-dropdown {
+	margin: 15px 30px 0 0;
+	width: 30%;
+	height: 30px;
+	font-size: 16px;
+}
+
+.card-subject {
+	width: 60%;
+	color: black;
+	box-sizing: border-box;
+	display: inline-block;
+	margin-bottom: 0;
+}
+
 #show-cards-list {
 	margin: 20px auto;
 }
@@ -370,7 +404,7 @@ td {
 @media print {
 	@page { margin: 0; }
   .header, .footer, #fill-ins-instructions-container, #terms-container, #custom-container, 
-  #options, #notes-input, #main-header, #user-buttons, .user-button {
+  #options, #notes-input, #main-header, #user-buttons, .user-button, #subjects-dropdown, .options {
     display: none !important;
   }
 
@@ -389,11 +423,16 @@ td {
 		background: blue;
 	}
 
-	#fill-ins, #terms, #custom {
+	#fill-ins, #terms, #custom, #show-cards-list {
 		width: 100%;
 		border-spacing: 0;
 		font-size: 18px;
 	}
+
+	#show-cards-list {
+		margin-top: 0;
+	}
+
   .card {
 		box-sizing: border-box;
 		display: table-cell;
