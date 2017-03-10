@@ -299,19 +299,6 @@ td {
 	background: #EB91B4;
 }
 
-.delete-card-button {
-	background: #EB91B4;
-}
-
-.subject-input {
-	padding: 0 10px;
-}
-
-.edit-card {
-	width: 80%;
-	height: 130px;
-}
-
 .prompt {
 	border-color: black
 	vertical-align: middle;
@@ -395,6 +382,21 @@ td {
 	box-sizing: border-box;
 	display: inline-block;
 	margin-bottom: 0;
+	cursor: default;
+}
+
+.subject-input {
+	padding: 0 10px;
+	cursor: text;
+}
+
+.delete-card-button {
+	background: #EB91B4;
+}
+
+.edit-card {
+	width: 80%;
+	height: 130px;
 }
 
 #show-cards-list {
