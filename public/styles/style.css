@@ -399,6 +399,22 @@ td {
 	height: 130px;
 }
 
+.dialog {
+	padding: 5px 30px;
+}
+
+.dialog p {
+	font-size: 20px;
+}
+
+.ui-dialog-buttonpane {
+	margin-top: 0 !important;
+}
+
+.ui-icon {
+	margin: 10px;
+}
+
 #show-cards-list {
 	margin: 20px auto;
 }

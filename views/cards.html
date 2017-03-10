@@ -9,14 +9,13 @@
       <!-- STYLESHEETS -->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css?family=Pangolin|Yanone+Kaffeesatz" rel="stylesheet">
+      <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
       <link rel="stylesheet" href="styles/style.css">
-
-      <!-- VENDOR SCRIPTS -->
-      
 
       <!-- APPLICATION SCRIPTS -->
       <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js" integrity="sha256-DI6NdAhhFRnO2k51mumYeDShet3I8AKCQf/tf7ARNhI=" crossorigin="anonymous"></script>
       <script type="text/javascript" src="/scripts/cardsApp.js"></script>
       
   </head>
@@ -24,6 +23,11 @@
   <div class="container">
 		<div class="header">
       <a href="/"><h1 class="main-header yanone">MF Flash Cards</h1></a>
+    </div>
+
+    <div id="delete-dialog" class="dialog yanone" title="Delete Flash Card">
+      <p>This flash card will be permanently deleted and cannot be recovered.</p> 
+      <p><span class="ui-icon ui-icon-alert"></span>Are you sure?</p>
     </div>
 
 		<div class="subjects-container">

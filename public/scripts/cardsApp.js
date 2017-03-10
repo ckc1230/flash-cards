@@ -43,10 +43,28 @@ $(document).ready(function() {
     })
   });
 
+  $("#delete-dialog").dialog({
+    autoOpen : false, 
+    modal : true, 
+    show : "fold", 
+    hide: "fold", 
+    width: 400,
+    resizable: false,
+    buttons: [ { text: "Cancel", click: function() { $( this ).dialog( "close" ); } }, 
+    { text: "Delete", click: function() { handleDeleteCard($(this).data('card')) } } ]
+  });
+
+  $('#show-cards-list').on('click', '.delete-card-button', function() {
+    var cardId = $(this).closest('.row').attr('id');
+    $("#delete-dialog")
+      .data('card', cardId)
+      .dialog("open");
+    return false;
+  })
+
   $('#subjects-dropdown').change(filterCards);
   $('#show-cards-list').on('click', '.edit-prompt-button', handleEditPrompt);
   $('#show-cards-list').on('click', '.edit-answer-button', handleEditAnswer);
-  $('#show-cards-list').on('click', '.delete-card-button', handleDeleteCard);
   $('#show-cards-list').on('click', '.edit-subject-button', handleEditSubject);
   $('#card-list-print').click(function() { window.print(); });
 });
@@ -199,13 +217,13 @@ function handleEditAnswer() {
   });
 }
 
-function handleDeleteCard() {
-  var cardId = $(this).closest('.row').attr('id');
+function handleDeleteCard(id) {
   $.ajax({
     method: 'DELETE',
-    url: '/api/cards/'+ cardId,
+    url: '/api/cards/'+ id,
     success: function(data) {
-      $('#'+cardId).remove();
+      $('#'+id).remove();
+      $("#delete-dialog").dialog('close');
       console.log('deleted');
     }
   });
