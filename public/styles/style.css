@@ -515,7 +515,7 @@ td {
 	@page { margin: 0; }
   .header, .footer, #fill-ins-instructions-container, #terms-container, #custom-container, 
   #options, #notes-input, #main-header, #user-buttons, .user-button, #subjects-dropdown, 
-  .options, .checkbox-div {
+  .options, .checkbox-div, .nav-container {
     display: none !important;
   }
 

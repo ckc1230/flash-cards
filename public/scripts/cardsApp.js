@@ -62,6 +62,8 @@ $(document).ready(function() {
       $('#delete-number').html(activeCards.length);
       $("#delete-dialog").dialog("open");
       return false;
+    } else {
+      alert('No flash cards selected.');
     }
   })
 
@@ -129,6 +131,8 @@ function handleStartQuiz() {
     $('#deck-count').html(activeCards.length);
     $('#quiz-modal').show();
     getCardData(activeCards[currentCard]);
+  } else {
+    alert('No flash cards selected.')
   }
 }
 
