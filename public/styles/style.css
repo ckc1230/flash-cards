@@ -12,6 +12,12 @@ input, textarea {
 	outline: none;
 }
 
+.material-icons {
+	vertical-align: top;
+	margin-right: 5px;
+	font-size: 20px;
+}
+
 .subjects {
 	width: 100%;
 	margin: 5px auto;
@@ -364,9 +370,19 @@ td {
 
 /* CARDS PAGE */
 
-#card-list-print {
+#start-quiz {
 	width: 10%;
 	background: lightgreen;
+}
+
+#card-list-print {
+	width: 10%;
+	background: #FBF8EB;
+}
+
+#delete-card {
+	width: 10%;
+	background: #EB91B4;
 }
 
 #subjects-dropdown {
@@ -374,6 +390,35 @@ td {
 	width: 30%;
 	height: 30px;
 	font-size: 16px;
+}
+
+#quiz-modal-content {
+	padding: 10px 20px;
+}
+
+#quiz-card {
+	display: inline-block;
+	height: 300px;
+	width: 300px;
+	background: blue;
+	margin: 20px auto;
+	padding: 20px;
+	font-size: 24px;
+}
+
+#flip-card {
+	background: lightgreen;
+}
+
+#close-quiz {
+	background-color: #EB91B4;
+}
+
+.quiz-arrow {
+	display: inline-block;
+	height: 300px;
+	background: green;
+	width: 30px;
 }
 
 .card-subject {
@@ -390,8 +435,14 @@ td {
 	cursor: text;
 }
 
-.delete-card-button {
-	background: #EB91B4;
+.checkbox-div {
+	background: #293F4F;
+	width: 50px;
+}
+
+.checkbox {
+	width: 20px;
+	height: 20px;
 }
 
 .edit-card {

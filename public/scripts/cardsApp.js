@@ -5,6 +5,8 @@ $(document).ready(function() {
   $.get( "/api/cards", function( data ) {
     data.forEach(function(value, key) {
       var row = $("<tr>", {"class": "row", "id": value._id});
+      var checkBoxDiv = $("<td>", {"class": "checkbox-div"});
+      var checkBox = $("<input>", {"type": "checkbox", "class": "checkbox"});
       var promptDiv = $("<td>", {"class": "card prompt"});
       promptDiv.text(value.prompt);
       var answerDiv = $("<td>", {"class": "card answer"});
@@ -17,15 +19,18 @@ $(document).ready(function() {
       var editSubject = $("<i>", {"class": "edit-subject-button options-button material-icons", "text": 'mode_edit'});
       var editPrompt = $("<div>", {"class": "edit-prompt-button options-button", "text": "Edit Prompt"});
       var editAnswer = $("<div>", {"class": "edit-answer-button options-button", "text": "Edit Answer"});
-      var deleteCard = $("<div>", {"class": "delete-card-button options-button", "text": "Delete Card"});
+      // var deleteCard = $("<div>", {"class": "delete-card-button options-button", "text": "Delete Card"});
       options.append(cardSubject);
       options.append(editSubject);
       options.append(editPrompt);
       options.append(editAnswer);
-      options.append(deleteCard);
+      // options.append(deleteCard);
       optionsDiv.append(options);
 
+      checkBoxDiv.append(checkBox);
+
       $('#show-cards-list').append(row);
+      $('#show-cards-list .row:nth-child('+(key+1)+')').append(checkBoxDiv);
       $('#show-cards-list .row:nth-child('+(key+1)+')').append(promptDiv);
       $('#show-cards-list .row:nth-child('+(key+1)+')').append(answerDiv);
       $('#show-cards-list .row:nth-child('+(key+1)+')').append(optionsDiv);
@@ -51,13 +56,15 @@ $(document).ready(function() {
     width: 400,
     resizable: false,
     buttons: [ { text: "Cancel", click: function() { $( this ).dialog( "close" ); } }, 
-    { text: "Delete", click: function() { handleDeleteCard($(this).data('card')) } } ]
+    { text: "Delete", click: function() { handleDeleteCard() } } ]
   });
 
-  $('#show-cards-list').on('click', '.delete-card-button', function() {
-    var cardId = $(this).closest('.row').attr('id');
+  $('#delete-card').on('click', function() {
+    // console.log(activeCards.length);
+    // var cardId = $(this).closest('.row').attr('id');
+    $('#delete-number').html(activeCards.length);
     $("#delete-dialog")
-      .data('card', cardId)
+      // .data('card', cardId)
       .dialog("open");
     return false;
   })
@@ -67,7 +74,61 @@ $(document).ready(function() {
   $('#show-cards-list').on('click', '.edit-answer-button', handleEditAnswer);
   $('#show-cards-list').on('click', '.edit-subject-button', handleEditSubject);
   $('#card-list-print').click(function() { window.print(); });
+
+  $('#show-cards-list').on('click', '.checkbox', handleCheckBox);
+  $('#start-quiz').on('click', handleStartQuiz);
+  $('#flip-card').on('click', flipCard);
+  $('#close-quiz').on('click', handleCloseQuiz);
+
 });
+
+var activeCards = [];
+var quizCard = {};
+
+function handleCheckBox() {
+  var cardId = $(this).closest('.row').attr('id');
+  if ($( this ).prop( "checked" )) {
+    activeCards.push(cardId);
+    console.log(activeCards);
+  } else if (activeCards.includes(cardId)) {
+    activeCards.splice(activeCards.indexOf(cardId) , 1)
+    console.log(activeCards);
+  }
+}
+
+function handleStartQuiz() {
+  if (activeCards[0]) {
+    $('#deck-count').html(activeCards.length);
+    $('#quiz-modal').show();
+    getCardData(activeCards[0]);
+  }
+}
+
+function getCardData(id) {
+  console.log(id);
+  $.ajax({
+    method: 'GET',
+    url: '/api/cards/'+ id,
+    success: function(data) {
+    console.log(data);
+    quizCard = data;
+    $('#quiz-card').html(quizCard.prompt);
+    $('#card-count').html(activeCards.indexOf(id)+1);
+    }
+  });
+}
+
+function handleCloseQuiz() {
+  $('#quiz-modal').hide();
+}
+
+function flipCard() {
+  if ($('#quiz-card').html() === quizCard.prompt) {
+    $('#quiz-card').html(quizCard.response);
+  } else {
+    $('#quiz-card').html(quizCard.prompt);
+  }
+}
 
 function filterCards() {
   var filteredSubject = $('#subjects-dropdown').val();
@@ -77,6 +138,8 @@ function filterCards() {
     $.get( "/api/cards", function( data ) {
       data.forEach(function(value, key) {
         var row = $("<tr>", {"class": "row", "id": value._id});
+        var checkBoxDiv = $("<td>", {"class": "checkbox-div"});
+        var checkBox = $("<input>", {"type": "checkbox", "class": "checkbox"});
         var promptDiv = $("<td>", {"class": "card prompt"});
         promptDiv.text(value.prompt);
         var answerDiv = $("<td>", {"class": "card answer"});
@@ -89,15 +152,15 @@ function filterCards() {
         var editSubject = $("<i>", {"class": "edit-subject-button options-button material-icons", "text": 'mode_edit'});
         var editPrompt = $("<div>", {"class": "edit-prompt-button options-button", "text": "Edit Prompt"});
         var editAnswer = $("<div>", {"class": "edit-answer-button options-button", "text": "Edit Answer"});
-        var deleteCard = $("<div>", {"class": "delete-card-button options-button", "text": "Delete Card"});
         options.append(cardSubject);
         options.append(editSubject);
         options.append(editPrompt);
         options.append(editAnswer);
-        options.append(deleteCard);
         optionsDiv.append(options);
+        checkBoxDiv.append(checkBox);
 
         $('#show-cards-list').append(row);
+        $('#show-cards-list .row:nth-child('+(key+1)+')').append(checkBoxDiv);
         $('#show-cards-list .row:nth-child('+(key+1)+')').append(promptDiv);
         $('#show-cards-list .row:nth-child('+(key+1)+')').append(answerDiv);
         $('#show-cards-list .row:nth-child('+(key+1)+')').append(optionsDiv);
@@ -108,6 +171,8 @@ function filterCards() {
       data.forEach(function(value, key) {
         if (value.subject ===  filteredSubject) {
           var row = $("<tr>", {"class": "row", "id": value._id});
+          var checkBoxDiv = $("<td>", {"class": "checkbox-div"});
+          var checkBox = $("<input>", {"type": "checkbox", "class": "checkbox"});
           var promptDiv = $("<td>", {"class": "card prompt"});
           promptDiv.text(value.prompt);
           var answerDiv = $("<td>", {"class": "card answer"});
@@ -120,15 +185,15 @@ function filterCards() {
           var editSubject = $("<i>", {"class": "edit-subject-button options-button material-icons", "text": 'mode_edit'});
           var editPrompt = $("<div>", {"class": "edit-prompt-button options-button", "text": "Edit Prompt"});
           var editAnswer = $("<div>", {"class": "edit-answer-button options-button", "text": "Edit Answer"});
-          var deleteCard = $("<div>", {"class": "delete-card-button options-button", "text": "Delete Card"});
           options.append(cardSubject);
           options.append(editSubject);
           options.append(editPrompt);
           options.append(editAnswer);
-          options.append(deleteCard);
           optionsDiv.append(options);
+          checkBoxDiv.append(checkBox);
 
           $('#show-cards-list').append(row);
+          $('#show-cards-list .row:nth-child('+(count)+')').append(checkBoxDiv);
           $('#show-cards-list .row:nth-child('+(count)+')').append(promptDiv);
           $('#show-cards-list .row:nth-child('+(count)+')').append(answerDiv);
           $('#show-cards-list .row:nth-child('+(count)+')').append(optionsDiv);
@@ -217,16 +282,19 @@ function handleEditAnswer() {
   });
 }
 
-function handleDeleteCard(id) {
-  $.ajax({
-    method: 'DELETE',
-    url: '/api/cards/'+ id,
-    success: function(data) {
-      $('#'+id).remove();
-      $("#delete-dialog").dialog('close');
-      console.log('deleted');
-    }
-  });
+function handleDeleteCard() {
+  activeCards.forEach(function(id, key) {
+    $.ajax({
+      method: 'DELETE',
+      url: '/api/cards/'+ id,
+      success: function(data) {
+        $('#'+id).remove();
+        $("#delete-dialog").dialog('close');
+        console.log('deleted');
+      }
+    });
+  })
+  activeCards = [];
 }
 
 function handleEditSubject() {
