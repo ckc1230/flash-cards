@@ -58,9 +58,11 @@ $(document).ready(function() {
   });
 
   $('#delete-card').on('click', function() {
-    $('#delete-number').html(activeCards.length);
-    $("#delete-dialog").dialog("open");
-    return false;
+    if (activeCards[currentCard]) {
+      $('#delete-number').html(activeCards.length);
+      $("#delete-dialog").dialog("open");
+      return false;
+    }
   })
 
   $('#subjects-dropdown').change(filterCards);

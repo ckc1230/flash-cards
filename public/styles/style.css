@@ -488,7 +488,8 @@ td {
 @media print {
 	@page { margin: 0; }
   .header, .footer, #fill-ins-instructions-container, #terms-container, #custom-container, 
-  #options, #notes-input, #main-header, #user-buttons, .user-button, #subjects-dropdown, .options {
+  #options, #notes-input, #main-header, #user-buttons, .user-button, #subjects-dropdown, 
+  .options, .checkbox-div {
     display: none !important;
   }
 
