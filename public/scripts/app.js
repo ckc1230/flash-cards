@@ -90,7 +90,7 @@ function processFillInsPreview() {
 function processFillInsSave() {
   $('#guide-modal').hide();
   if ($('#notes-input').val()) {
-    var questionSubject = $('#guide-input').val();
+    var questionSubject = $('#guide-input').val().trim();
     var notes = $('#notes-input').val();
     var questions = notes.split('~');
     questions.forEach(function(question, i) {
@@ -128,8 +128,8 @@ function processTermsPreview() {
   $('#terms').empty();
   var terms = $('.text-input');
   var definitions = $('.definition-input');
-  terms = terms.map(function() { return this.value; })  
-  definitions = definitions.map(function() { return this.value; })
+  terms = terms.map(function() { return this.value.trim(); })  
+  definitions = definitions.map(function() { return this.value.trim(); })
 
   for (var i = 0; i<5; i++) {
     if (terms[i] && definitions[i]) {
@@ -148,12 +148,12 @@ function processTermsPreview() {
 
 function processTermsSave() {
   $('#guide-modal').hide();
-  var questionSubject = $('#guide-input').val();
+  var questionSubject = $('#guide-input').val().trim();
   var terms = $('.text-input');
   var definitions = $('.definition-input');
   var termsCount = 0;
-  terms = terms.map(function() { return this.value; });
-  definitions = definitions.map(function() { return this.value; });
+  terms = terms.map(function() { return this.value.trim(); });
+  definitions = definitions.map(function() { return this.value.trim(); });
 
   for (var i = 0; i<5; i++) {
     if (terms[i] && definitions[i]) {
@@ -193,11 +193,13 @@ function processCustomPreview() {
     var questions = notes.split('~');
     questions.forEach(function(question, i) {
       var parts = question.split('|');
+      var prompt = parts[0].trim();
+      var response = parts[1].trim();
       var row = $("<tr>", {"class": "row"});
       var promptDiv = $("<td>", {"class": "card prompt"});
-      promptDiv.text(parts[0]);
+      promptDiv.text(prompt);
       var answerDiv = $("<td>", {"class": "card answer"});
-      answerDiv.text(parts[1]);
+      answerDiv.text(response);
 
       $('#custom').append(row);
       $('#custom .row:nth-child('+(i+1)+')').append(promptDiv);
@@ -210,21 +212,18 @@ function processCustomPreview() {
 function processCustomSave() {
   $('#guide-modal').hide();
   if ($('#custom-input').val()) {
-    var questionSubject = $('#guide-input').val();
+    var questionSubject = $('#guide-input').val().trim();
     var notes = $('#custom-input').val();
     var questions = notes.split('~');
     questions.forEach(function(question, i) {
       var parts = question.split('|');
-      var row = $("<tr>", {"class": "row"});
-      var promptDiv = $("<td>", {"class": "card prompt"});
-      promptDiv.text(parts[0]);
-      var answerDiv = $("<td>", {"class": "card answer"});
-      answerDiv.text(parts[1]);
+      var prompt = parts[0].trim();
+      var response = parts[1].trim();
 
       var newCard = {
         subject: questionSubject,
-        prompt: parts[0],
-        response: parts[1]
+        prompt: prompt,
+        response: response
       }
       
       $.post('/api/cards', newCard, function(album) {
