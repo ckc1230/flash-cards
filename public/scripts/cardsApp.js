@@ -79,10 +79,12 @@ $(document).ready(function() {
   $('#start-quiz').on('click', handleStartQuiz);
   $('#flip-card').on('click', flipCard);
   $('#close-quiz').on('click', handleCloseQuiz);
+  $('.quiz-arrow').on('click', changeCard);
 
 });
 
 var activeCards = [];
+var currentCard = 0;
 var quizCard = {};
 
 function handleCheckBox() {
@@ -97,11 +99,20 @@ function handleCheckBox() {
 }
 
 function handleStartQuiz() {
-  if (activeCards[0]) {
+  if (activeCards[currentCard]) {
     $('#deck-count').html(activeCards.length);
     $('#quiz-modal').show();
-    getCardData(activeCards[0]);
+    getCardData(activeCards[currentCard]);
   }
+}
+
+function changeCard() {
+  currentCard++;
+  if (currentCard >= activeCards.length) {
+    currentCard = 0;
+  }
+  
+  getCardData(activeCards[currentCard]);
 }
 
 function getCardData(id) {
