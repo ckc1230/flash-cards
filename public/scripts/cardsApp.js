@@ -19,12 +19,10 @@ $(document).ready(function() {
       var editSubject = $("<i>", {"class": "edit-subject-button options-button material-icons", "text": 'mode_edit'});
       var editPrompt = $("<div>", {"class": "edit-prompt-button options-button", "text": "Edit Prompt"});
       var editAnswer = $("<div>", {"class": "edit-answer-button options-button", "text": "Edit Answer"});
-      // var deleteCard = $("<div>", {"class": "delete-card-button options-button", "text": "Delete Card"});
       options.append(cardSubject);
       options.append(editSubject);
       options.append(editPrompt);
       options.append(editAnswer);
-      // options.append(deleteCard);
       optionsDiv.append(options);
 
       checkBoxDiv.append(checkBox);
@@ -60,12 +58,8 @@ $(document).ready(function() {
   });
 
   $('#delete-card').on('click', function() {
-    // console.log(activeCards.length);
-    // var cardId = $(this).closest('.row').attr('id');
     $('#delete-number').html(activeCards.length);
-    $("#delete-dialog")
-      // .data('card', cardId)
-      .dialog("open");
+    $("#delete-dialog").dialog("open");
     return false;
   })
 
@@ -79,7 +73,9 @@ $(document).ready(function() {
   $('#start-quiz').on('click', handleStartQuiz);
   $('#flip-card').on('click', flipCard);
   $('#close-quiz').on('click', handleCloseQuiz);
-  $('.quiz-arrow').on('click', changeCard);
+  $('#left-arrow').on('click', changeCardBackward);
+  $('#right-arrow').on('click', changeCardForward);
+  $('#random-card').on('click', changeCardRandom);
 
 });
 
@@ -91,10 +87,8 @@ function handleCheckBox() {
   var cardId = $(this).closest('.row').attr('id');
   if ($( this ).prop( "checked" )) {
     activeCards.push(cardId);
-    console.log(activeCards);
   } else if (activeCards.includes(cardId)) {
     activeCards.splice(activeCards.indexOf(cardId) , 1)
-    console.log(activeCards);
   }
 }
 
@@ -106,22 +100,30 @@ function handleStartQuiz() {
   }
 }
 
-function changeCard() {
+function changeCardForward() {
   currentCard++;
   if (currentCard >= activeCards.length) {
     currentCard = 0;
   }
-  
+  getCardData(activeCards[currentCard]);
+}
+
+function changeCardBackward() {
+  currentCard--;
+  if (currentCard < 0) { currentCard = activeCards.length-1; }
+  getCardData(activeCards[currentCard]);
+}
+
+function changeCardRandom() {
+  currentCard = Math.floor(Math.random() * activeCards.length);
   getCardData(activeCards[currentCard]);
 }
 
 function getCardData(id) {
-  console.log(id);
   $.ajax({
     method: 'GET',
     url: '/api/cards/'+ id,
     success: function(data) {
-    console.log(data);
     quizCard = data;
     $('#quiz-card').html(quizCard.prompt);
     $('#card-count').html(activeCards.indexOf(id)+1);
