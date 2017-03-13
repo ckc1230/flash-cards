@@ -54,7 +54,7 @@ $(document).ready(function() {
     width: 400,
     resizable: false,
     buttons: [ { text: "Cancel", click: function() { $( this ).dialog( "close" ); } }, 
-    { text: "Delete", click: function() { handleDeleteCard() } } ]
+    { text: "Delete", class: "danger-button", click: function() { handleDeleteCard() } } ]
   });
 
   $('#delete-card').on('click', function() {
@@ -69,7 +69,9 @@ $(document).ready(function() {
   $('#show-cards-list').on('click', '.edit-prompt-button', handleEditPrompt);
   $('#show-cards-list').on('click', '.edit-answer-button', handleEditAnswer);
   $('#show-cards-list').on('click', '.edit-subject-button', handleEditSubject);
-  $('#card-list-print').click(function() { window.print(); });
+  $('#card-list-print').click(handlePrint);
+  $('#select-all').click(selectAllCards);
+  $('#clear-all').click(clearAllCards);
 
   $('#show-cards-list').on('click', '.checkbox', handleCheckBox);
   $('#start-quiz').on('click', handleStartQuiz);
@@ -92,6 +94,34 @@ function handleCheckBox() {
   } else if (activeCards.includes(cardId)) {
     activeCards.splice(activeCards.indexOf(cardId) , 1)
   }
+}
+
+function selectAllCards() {
+  var boxes = $('.checkbox');
+  $.each(boxes, function(key, box) {
+    box.checked = true;
+  })
+
+  var rows = $('.row');
+  $.each(rows, function(key, row) {
+    var currentId = $(row).attr('id')
+    if (activeCards.indexOf(currentId) === -1 ) {
+      activeCards.push(currentId);
+    }
+  })
+}
+
+function clearAllCards() {
+  var boxes = $('.checkbox');
+  $.each(boxes, function(key, box) {
+    box.checked = false;
+  })
+
+  var rows = $('.row');
+  $.each(rows, function(key, row) {
+    var currentId = $(row).attr('id')
+    activeCards = [];
+  })
 }
 
 function handleStartQuiz() {
@@ -340,4 +370,8 @@ function handleSaveSubject() {
       input.replaceWith(updatedSubject);
     }
   });
+}
+
+function handlePrint() {
+  window.print();
 }
