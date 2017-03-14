@@ -16,11 +16,9 @@ $(document).ready(function() {
       var optionsDiv = $("<td>");
       var options = $("<table>", {"class": "options"});
       var cardSubject = $("<div>", {"class": "card-subject options-button", "text": value.subject});
-      var editSubject = $("<i>", {"class": "edit-subject-button options-button material-icons", "text": 'mode_edit'});
       var editPrompt = $("<div>", {"class": "edit-prompt-button options-button", "text": "Edit Prompt"});
       var editAnswer = $("<div>", {"class": "edit-answer-button options-button", "text": "Edit Answer"});
       options.append(cardSubject);
-      options.append(editSubject);
       options.append(editPrompt);
       options.append(editAnswer);
       optionsDiv.append(options);
@@ -70,15 +68,17 @@ $(document).ready(function() {
   $('#subjects-dropdown').change(filterCards);
   $('#show-cards-list').on('click', '.edit-prompt-button', handleEditPrompt);
   $('#show-cards-list').on('click', '.edit-answer-button', handleEditAnswer);
-  $('#show-cards-list').on('click', '.edit-subject-button', handleEditSubject);
   $('#card-list-print').click(handlePrint);
   $('#select-all').click(selectAllCards);
   $('#clear-all').click(clearAllCards);
+  $('#edit-subject').click(handleUpdateModal);
+  $('#update-subject').click(handleUpdateSubject);
 
   $('#show-cards-list').on('click', '.checkbox', handleCheckBox);
   $('#start-quiz').on('click', handleStartQuiz);
   $('#flip-card').on('click', flipCard);
-  $('#close-quiz').on('click', handleCloseQuiz);
+  $('#close-quiz').on('click', handleCloseModal);
+  $('#close-update').on('click', handleCloseModal);
   $('#left-arrow').on('click', changeCardBackward);
   $('#right-arrow').on('click', changeCardForward);
   $('#random-card').on('click', changeCardRandom);
@@ -167,8 +167,8 @@ function getCardData(id) {
   });
 }
 
-function handleCloseQuiz() {
-  $('#quiz-modal').hide();
+function handleCloseModal() {
+  $('.modal').hide();
 }
 
 function flipCard() {
@@ -218,7 +218,7 @@ function filterCards() {
   } else {
     $.get( "/api/cards", function( data ) {
       data.forEach(function(value, key) {
-        if (value.subject ===  filteredSubject) {
+        if (value.subject.toLowerCase() ===  filteredSubject.toLowerCase()) {
           var row = $("<tr>", {"class": "row", "id": value._id});
           var checkBoxDiv = $("<td>", {"class": "checkbox-div"});
           var checkBox = $("<input>", {"type": "checkbox", "class": "checkbox"});
@@ -346,34 +346,30 @@ function handleDeleteCard() {
   activeCards = [];
 }
 
-function handleEditSubject() {
-  var row = $(this).closest('table');
-  var subject = row.children('.card-subject');
-
-  var saveSubject = $("<i>", {"class": "save-subject-button options-button material-icons", "text": 'save'});
-  row.children('.edit-subject-button').replaceWith(saveSubject);
-
-  var subjectInput = $("<input>", {"class": "subject-input card-subject options-button", "value": subject.text()});
-  subject.replaceWith(subjectInput);
-
-  $(saveSubject).on('click', handleSaveSubject);
+function handleUpdateModal() {
+  if (activeCards[currentCard]) {
+    $('#update-subject-modal').show();
+  } else {
+    alert('No flash cards selected.');
+  }
 }
 
-function handleSaveSubject() {
-  var cardId = $(this).closest('.row').attr('id');
-  var row = $(this).closest('table');
-  var input = row.children('input');
-  $.ajax({
+function handleUpdateSubject() {
+  var updatedSubject = $('#update-input').val();
+  activeCards.forEach(function(id, key) {
+    $.ajax({
     method: 'PUT',
-    url: '/api/cards/'+ cardId,
-    data: { subject: input.val() },
+    url: '/api/cards/'+ id,
+    data: { subject: updatedSubject },
     success: function(data) {
-      var updatedSubject = $("<div>", {"class": "card-subject options-button", "text": input.val()});
-      var editSubject = $("<i>", {"class": "edit-subject-button options-button material-icons", "text": 'mode_edit'});
-      row.children('.save-subject-button').replaceWith(editSubject);
-      input.replaceWith(updatedSubject);
-    }
-  });
+      $("#"+id).find(".card-subject").text(data.subject);
+      console.log(data);
+      }
+    });
+  })
+  activeCards = [];
+  $('#update-input').val("");
+  $('#update-subject-modal').hide();
 }
 
 function handlePrint() {

@@ -273,6 +273,7 @@ td {
 	margin: 10px;
 	font-family: 'Yanone Kaffeesatz', sans-serif;
 	color: white;
+	vertical-align: middle;
 }
 
 .options-button {
@@ -358,7 +359,7 @@ td {
 	width: 30%;
 }
 
-#guide-input {
+.subject-input {
 	display: block;
 	border-radius: 5px;
 	width: 250px;
@@ -380,13 +381,12 @@ td {
 /* CARDS PAGE */
 
 .all-cards-button {
-	padding: 5px;
+	padding: 5px 8px;
 	border: 2px solid black;
 	border-radius: 5px;
 	display: inline-block;
 	cursor: pointer;
 	margin: 0 auto;
-	width: 8%;
 }
 
 #start-quiz {
@@ -401,6 +401,10 @@ td {
 #clear-all {
 	background: #293F4F;
 	color: #FBF8EB;
+}
+
+#edit-subject {
+	background: #FBF8EB;
 }
 
 #card-list-print {
@@ -445,6 +449,11 @@ td {
 	margin-bottom: 10px;
 }
 
+#update-subject {
+	background: lightgreen;
+	margin-bottom: 10px;
+}
+
 .quiz-arrow {
 	display: inline-block;
 	cursor: pointer;
@@ -463,12 +472,12 @@ td {
 }
 
 .card-subject {
-	width: 60%;
 	color: black;
 	box-sizing: border-box;
 	display: inline-block;
-	margin-bottom: 0;
+	margin: 0 auto;
 	cursor: default;
+	font-size: 20px;
 }
 
 .subject-input {

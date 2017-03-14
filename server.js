@@ -25,24 +25,10 @@ app.get('/cards', function homepage(req, res) {
 
 /* API ROUTES */ 
 
-app.get('/api/guides', function indexGuides(req, res) {
-  db.Guide.find({}, function(err, allGuides) {
-    if (err) { throw err; };
-    res.json(allGuides);
-  });
-});
-
-app.get('/api/cards', function indexGuides(req, res) {
+app.get('/api/cards', function indexCards(req, res) {
   db.Card.find({}, function(err, allCards) {
     if (err) { throw err; };
     res.json(allCards);
-  });
-});
-
-app.get('/api/guides/:id', function showGuide(req, res) {
-  db.Guide.findById({ _id: req.params.id }, function(err, guide) {
-    if (err) { throw err; };
-    res.json(guide);
   });
 });
 
@@ -52,7 +38,6 @@ app.get('/api/cards/:id', function showCard(req, res) {
     res.json(card);
   });
 });
-
 
 app.post('/api/cards', function createCard(req, res) {
   var newCard = {
@@ -85,7 +70,6 @@ app.put('/api/cards/:id', function updateCard(req, res) {
     });
   });
 });
-
 
 /* SERVER SET UP */ 
 
