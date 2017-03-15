@@ -3,6 +3,15 @@ $(document).ready(function() {
   var subjects = [];
 
   $.get( "/api/cards", function( data ) {
+    data.sort(function(a, b){
+      var subjectA = a.subject,
+          subjectB = b.subject;
+
+      if(subjectA < subjectB) return -1;
+      if(subjectA > subjectB) return 1;
+      return 0;
+    });
+
     data.forEach(function(value, key) {
       var row = $("<tr>", {"class": "row", "id": value._id});
       var checkBoxDiv = $("<td>", {"class": "checkbox-div"});
@@ -18,18 +27,12 @@ $(document).ready(function() {
       var cardSubject = $("<div>", {"class": "card-subject options-button", "text": value.subject});
       var editPrompt = $("<div>", {"class": "edit-prompt-button options-button", "text": "Edit Prompt"});
       var editAnswer = $("<div>", {"class": "edit-answer-button options-button", "text": "Edit Answer"});
-      options.append(cardSubject);
-      options.append(editPrompt);
-      options.append(editAnswer);
+      options.append(cardSubject, editPrompt, editAnswer);
       optionsDiv.append(options);
-
       checkBoxDiv.append(checkBox);
 
       $('#show-cards-list').append(row);
-      $('#show-cards-list .row:nth-child('+(key+1)+')').append(checkBoxDiv);
-      $('#show-cards-list .row:nth-child('+(key+1)+')').append(promptDiv);
-      $('#show-cards-list .row:nth-child('+(key+1)+')').append(answerDiv);
-      $('#show-cards-list .row:nth-child('+(key+1)+')').append(optionsDiv);
+      $('#show-cards-list .row:nth-child('+(key+1)+')').append(checkBoxDiv, promptDiv, answerDiv, optionsDiv);
 
       // ADD SUBJECT TO ARRAY
       if (subjects.indexOf(value.subject) == -1) {
@@ -44,17 +47,23 @@ $(document).ready(function() {
     })
   });
 
-  $("#delete-dialog").dialog({
-    autoOpen : false, 
-    modal : true, 
-    show : "fold", 
-    hide: "fold", 
-    width: 400,
-    resizable: false,
-    buttons: [ { text: "Cancel", click: function() { $( this ).dialog( "close" ); } }, 
-    { text: "Delete", class: "danger-button", click: function() { handleDeleteCard() } } ]
-  });
-
+  // EVENT LISTENERS
+  $('#subjects-dropdown').change(filterCards);
+  $('#show-cards-list').on('click', '.edit-prompt-button', handleEditPrompt);
+  $('#show-cards-list').on('click', '.edit-answer-button', handleEditAnswer);
+  $('#card-list-print').click(handlePrint);
+  $('#select-all').click(selectAllCards);
+  $('#clear-all').click(clearAllCards);
+  $('#edit-subject').click(handleUpdateModal);
+  $('#update-subject').click(handleUpdateSubject);
+  $('#show-cards-list').on('click', '.checkbox', handleCheckBox);
+  $('#start-quiz').on('click', handleStartQuiz);
+  $('#flip-card').on('click', flipCard);
+  $('#close-quiz').on('click', handleCloseModal);
+  $('#close-update').on('click', handleCloseModal);
+  $('#left-arrow').on('click', changeCardBackward);
+  $('#right-arrow').on('click', changeCardForward);
+  $('#random-card').on('click', changeCardRandom);
   $('#delete-card').on('click', function() {
     if (activeCards[currentCard]) {
       $('#delete-number').html(activeCards.length);
@@ -65,24 +74,12 @@ $(document).ready(function() {
     }
   })
 
-  $('#subjects-dropdown').change(filterCards);
-  $('#show-cards-list').on('click', '.edit-prompt-button', handleEditPrompt);
-  $('#show-cards-list').on('click', '.edit-answer-button', handleEditAnswer);
-  $('#card-list-print').click(handlePrint);
-  $('#select-all').click(selectAllCards);
-  $('#clear-all').click(clearAllCards);
-  $('#edit-subject').click(handleUpdateModal);
-  $('#update-subject').click(handleUpdateSubject);
-
-  $('#show-cards-list').on('click', '.checkbox', handleCheckBox);
-  $('#start-quiz').on('click', handleStartQuiz);
-  $('#flip-card').on('click', flipCard);
-  $('#close-quiz').on('click', handleCloseModal);
-  $('#close-update').on('click', handleCloseModal);
-  $('#left-arrow').on('click', changeCardBackward);
-  $('#right-arrow').on('click', changeCardForward);
-  $('#random-card').on('click', changeCardRandom);
-
+  // DELETE DIALOG
+  $("#delete-dialog").dialog({
+    autoOpen : false, modal : true, show : "fold", hide: "fold", width: 400, resizable: false,
+    buttons: [ { text: "Cancel", click: function() { $( this ).dialog( "close" ); } }, 
+    { text: "Delete", class: "danger-button", click: function() { handleDeleteCard() } } ]
+  });
 });
 
 var activeCards = [];
@@ -138,9 +135,7 @@ function handleStartQuiz() {
 
 function changeCardForward() {
   currentCard++;
-  if (currentCard >= activeCards.length) {
-    currentCard = 0;
-  }
+  if (currentCard >= activeCards.length) { currentCard = 0; }
   getCardData(activeCards[currentCard]);
 }
 
@@ -160,9 +155,9 @@ function getCardData(id) {
     method: 'GET',
     url: '/api/cards/'+ id,
     success: function(data) {
-    quizCard = data;
-    $('#quiz-card').html(quizCard.prompt);
-    $('#card-count').html(activeCards.indexOf(id)+1);
+      quizCard = data;
+      $('#quiz-card').html(quizCard.prompt);
+      $('#card-count').html(activeCards.indexOf(id)+1);
     }
   });
 }
@@ -172,11 +167,8 @@ function handleCloseModal() {
 }
 
 function flipCard() {
-  if ($('#quiz-card').html() === quizCard.prompt) {
-    $('#quiz-card').html(quizCard.response);
-  } else {
-    $('#quiz-card').html(quizCard.prompt);
-  }
+  $('#quiz-card').html() === quizCard.prompt ? 
+    $('#quiz-card').html(quizCard.response) : $('#quiz-card').html(quizCard.prompt);
 }
 
 function filterCards() {
@@ -185,6 +177,16 @@ function filterCards() {
   var count = 1;
   if (filteredSubject === 'All') {
     $.get( "/api/cards", function( data ) {
+      
+      data.sort(function(a, b){
+        var subjectA = a.subject,
+            subjectB = b.subject;
+
+        if(subjectA < subjectB) return -1;
+        if(subjectA > subjectB) return 1;
+        return 0;
+      });
+
       data.forEach(function(value, key) {
         var row = $("<tr>", {"class": "row", "id": value._id});
         var checkBoxDiv = $("<td>", {"class": "checkbox-div"});
@@ -198,21 +200,14 @@ function filterCards() {
         var optionsDiv = $("<td>");
         var options = $("<table>", {"class": "options"});
         var cardSubject = $("<div>", {"class": "card-subject options-button", "text": value.subject});
-        var editSubject = $("<i>", {"class": "edit-subject-button options-button material-icons", "text": 'mode_edit'});
         var editPrompt = $("<div>", {"class": "edit-prompt-button options-button", "text": "Edit Prompt"});
         var editAnswer = $("<div>", {"class": "edit-answer-button options-button", "text": "Edit Answer"});
-        options.append(cardSubject);
-        options.append(editSubject);
-        options.append(editPrompt);
-        options.append(editAnswer);
+        options.append(cardSubject, editPrompt, editAnswer);
         optionsDiv.append(options);
         checkBoxDiv.append(checkBox);
 
         $('#show-cards-list').append(row);
-        $('#show-cards-list .row:nth-child('+(key+1)+')').append(checkBoxDiv);
-        $('#show-cards-list .row:nth-child('+(key+1)+')').append(promptDiv);
-        $('#show-cards-list .row:nth-child('+(key+1)+')').append(answerDiv);
-        $('#show-cards-list .row:nth-child('+(key+1)+')').append(optionsDiv);
+        $('#show-cards-list .row:nth-child('+(key+1)+')').append(checkBoxDiv, promptDiv, answerDiv, optionsDiv);
       })
     })
   } else {
@@ -231,21 +226,14 @@ function filterCards() {
           var optionsDiv = $("<td>");
           var options = $("<table>", {"class": "options"});
           var cardSubject = $("<div>", {"class": "card-subject options-button", "text": value.subject});
-          var editSubject = $("<i>", {"class": "edit-subject-button options-button material-icons", "text": 'mode_edit'});
           var editPrompt = $("<div>", {"class": "edit-prompt-button options-button", "text": "Edit Prompt"});
           var editAnswer = $("<div>", {"class": "edit-answer-button options-button", "text": "Edit Answer"});
-          options.append(cardSubject);
-          options.append(editSubject);
-          options.append(editPrompt);
-          options.append(editAnswer);
+          options.append(cardSubject, editPrompt, editAnswer);
           optionsDiv.append(options);
           checkBoxDiv.append(checkBox);
 
           $('#show-cards-list').append(row);
-          $('#show-cards-list .row:nth-child('+(count)+')').append(checkBoxDiv);
-          $('#show-cards-list .row:nth-child('+(count)+')').append(promptDiv);
-          $('#show-cards-list .row:nth-child('+(count)+')').append(answerDiv);
-          $('#show-cards-list .row:nth-child('+(count)+')').append(optionsDiv);
+          $('#show-cards-list .row:nth-child('+(count)+')').append(checkBoxDiv, promptDiv, answerDiv, optionsDiv);
           count++;
         }
       })
@@ -266,12 +254,10 @@ function handleEditPrompt() {
   var updatePrompt = $("<div>", {"class": "update-prompt-button options-button", "text": "Update Prompt"});
   var cancelPrompt = $("<div>", {"class": "cancel-prompt-button options-button", "text": "Cancel"});
   row.append(saveOptions)
-  saveOptions.append(updatePrompt);
-  saveOptions.append(cancelPrompt);
+  saveOptions.append(updatePrompt, cancelPrompt);
 
   $('.update-prompt-button').click(function() {
     var cardId = $(this).closest('.row').attr('id');
-    console.log('update: ', editInput.val());
     $('.options').show();
     $('.save-options').hide();
     $.ajax({
@@ -279,11 +265,13 @@ function handleEditPrompt() {
       url: '/api/cards/'+ cardId,
       data: { prompt: editInput.val() },
       success: function(data) {
+        console.log("updated", cardId + ": "  + editInput.val())
         prompt.text(editInput.val());
         editCard.replaceWith(prompt);
       }
     });
   });
+  
   $('.cancel-prompt-button').click(function() {
     editCard.replaceWith(prompt);  
     $('.options').show();
@@ -303,13 +291,10 @@ function handleEditAnswer() {
   var updateAnswer = $("<div>", {"class": "update-answer-button options-button", "text": "Update Answer"});
   var cancelAnswer = $("<div>", {"class": "cancel-answer-button options-button", "text": "Cancel"});
   row.append(saveOptions)
-  saveOptions.append(updateAnswer);
-  saveOptions.append(cancelAnswer);
+  saveOptions.append(updateAnswer, cancelAnswer);
 
   $('.update-answer-button').click(function() {
     var cardId = $(this).closest('.row').attr('id');
-    console.log('update: ', editInput.val());
-    console.log('id:', cardId)
     $('.options').show();
     $('.save-options').hide();
     $.ajax({
@@ -317,7 +302,7 @@ function handleEditAnswer() {
       url: '/api/cards/'+ cardId,
       data: { response: editInput.val() },
       success: function(data) {
-        console.log(editInput.val())
+        console.log("updated", cardId + ": "  + editInput.val())
         answer.text(editInput.val());
         editCard.replaceWith(answer);
       }
@@ -339,7 +324,6 @@ function handleDeleteCard() {
       success: function(data) {
         $('#'+id).remove();
         $("#delete-dialog").dialog('close');
-        console.log('deleted');
       }
     });
   })
@@ -347,11 +331,7 @@ function handleDeleteCard() {
 }
 
 function handleUpdateModal() {
-  if (activeCards[currentCard]) {
-    $('#update-subject-modal').show();
-  } else {
-    alert('No flash cards selected.');
-  }
+  activeCards[currentCard] ? $('#update-subject-modal').show() : alert('No flash cards selected.');
 }
 
 function handleUpdateSubject() {
