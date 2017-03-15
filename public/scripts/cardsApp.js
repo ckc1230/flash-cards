@@ -122,7 +122,7 @@ function clearAllCards() {
   var rows = $('.row');
   $.each(rows, function(key, row) {
     var currentId = $(row).attr('id')
-    activeCards = [];
+    activeCards.splice(activeCards.indexOf(currentId) , 1);
   })
 }
 
@@ -188,7 +188,7 @@ function filterCards() {
       data.forEach(function(value, key) {
         var row = $("<tr>", {"class": "row", "id": value._id});
         var checkBoxDiv = $("<td>", {"class": "checkbox-div"});
-        var checkBox = $("<input>", {"type": "checkbox", "class": "checkbox"});
+        var checkBox = $("<input>", {"type": "checkbox", "class": "checkbox", "checked": activeCards.indexOf(value._id) != -1 });
         var promptDiv = $("<td>", {"class": "card prompt"});
         promptDiv.text(value.prompt);
         var answerDiv = $("<td>", {"class": "card answer"});
@@ -221,7 +221,7 @@ function filterCards() {
         if (value.subject.toLowerCase() ===  filteredSubject.toLowerCase()) {
           var row = $("<tr>", {"class": "row", "id": value._id});
           var checkBoxDiv = $("<td>", {"class": "checkbox-div"});
-          var checkBox = $("<input>", {"type": "checkbox", "class": "checkbox"});
+          var checkBox = $("<input>", {"type": "checkbox", "class": "checkbox", "checked": activeCards.indexOf(value._id) != -1 });
           var promptDiv = $("<td>", {"class": "card prompt"});
           promptDiv.text(value.prompt);
           var answerDiv = $("<td>", {"class": "card answer"});
