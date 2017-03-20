@@ -163,14 +163,18 @@ function changeCardRandom() {
 }
 
 function removeCardFromDeck() {
-  if (currentCard === activeCards.length-1) {
-    activeCards.splice(currentCard , 1);
-    getCardData(activeCards[--currentCard]);
+  if (activeCards.length > 1) {
+    if (currentCard === activeCards.length-1) {
+      activeCards.splice(currentCard , 1);
+      getCardData(activeCards[--currentCard]);
+    } else {
+      activeCards.splice(currentCard , 1);
+      getCardData(activeCards[currentCard]);
+    }
+    $('#deck-count').html(activeCards.length);
   } else {
-    activeCards.splice(currentCard , 1);
-    getCardData(activeCards[currentCard]);
+    alert('This is the last card!');
   }
-  $('#deck-count').html(activeCards.length);
 }
 
 function getCardData(id) {
