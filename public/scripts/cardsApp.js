@@ -132,6 +132,17 @@ function handleStartQuiz() {
   } else {
     alert('No flash cards selected.')
   }
+  $( "html" ).keydown(function(e) {
+    if (e.keyCode === 37) {
+      changeCardBackward();
+    } else if (e.keyCode === 39) {
+      changeCardForward();
+    } else if (e.keyCode === 38) {
+      flipCard();
+    } else if (e.keyCode === 189) {
+      removeCardFromDeck();
+    }
+  });
 }
 
 function changeCardForward() {
@@ -176,6 +187,7 @@ function getCardData(id) {
 
 function handleCloseModal() {
   $('.modal').hide();
+  $( "html" ).off();
 }
 
 function flipCard() {
