@@ -59,6 +59,7 @@ $(document).ready(function() {
   $('#show-cards-list').on('click', '.checkbox', handleCheckBox);
   $('#start-quiz').on('click', handleStartQuiz);
   $('#flip-card').on('click', flipCard);
+  $('#remove-card').on('click', removeCardFromDeck);
   $('#close-quiz').on('click', handleCloseModal);
   $('#close-update').on('click', handleCloseModal);
   $('#left-arrow').on('click', changeCardBackward);
@@ -148,6 +149,17 @@ function changeCardBackward() {
 function changeCardRandom() {
   currentCard = Math.floor(Math.random() * activeCards.length);
   getCardData(activeCards[currentCard]);
+}
+
+function removeCardFromDeck() {
+  if (currentCard === activeCards.length-1) {
+    activeCards.splice(currentCard , 1);
+    getCardData(activeCards[--currentCard]);
+  } else {
+    activeCards.splice(currentCard , 1);
+    getCardData(activeCards[currentCard]);
+  }
+  $('#deck-count').html(activeCards.length);
 }
 
 function getCardData(id) {

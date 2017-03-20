@@ -47,6 +47,10 @@ input, textarea {
 	width: 100%;
 }
 
+.half-button {
+	width: 120px !important;
+}
+
 #options {
 	width: 80%;
 	margin: 20px auto 0 auto;
@@ -442,6 +446,7 @@ td {
 #flip-card {
 	background: lightgreen;
 	margin-bottom: 10px;
+	display: block;
 }
 
 #close-quiz {
@@ -522,6 +527,7 @@ td {
 
 @media print {
 	@page { margin: 0; }
+
   .header, .footer, #fill-ins-instructions-container, #terms-container, #custom-container, 
   #options, #notes-input, #main-header, #user-buttons, .user-button, #subjects-dropdown, 
   .options, .checkbox-div, .nav-container {
