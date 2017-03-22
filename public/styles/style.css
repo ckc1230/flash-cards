@@ -543,16 +543,19 @@ td {
 /* Landscape */
 @media only screen 
   and (min-device-width: 375px) 
-  and (max-device-width: 667px) 
+  and (max-device-width: 736px) 
   and (-webkit-min-device-pixel-ratio: 2)
   and (orientation: landscape) { 
 
 	#fill-ins-container, #fill-ins-instructions-container, 
 	#terms-container, #terms-instructions-container,
-	#custom-container
-	 {
-		width: 100%;
+	#custom-container, #custom-instructions-container, 
+	#notes-input, #custom-input {
+		width: 100% !important;
+		padding: 15px 0;
 		margin: 0 auto;
+		min-width: 0;
+		box-sizing: border-box;
 	}
 
 	.header {
@@ -560,13 +563,19 @@ td {
 	}
 
 	.main-header {
-		font-size: 40px;
+		font-size: 50px;
 		line-height: 60px
 	}
 
   #options {
   	width: 100%;
   }	
+
+  .terms-row {
+  	display: block;
+  	width: 90%;
+  	margin: 20px auto;
+  }
 
   .nav-container {
   	position: absolute;
@@ -603,7 +612,7 @@ td {
 	}
 
   #show-cards-list {
-  	margin: 200px 10px 10px 10px;
+  	margin: 175px 10px 10px 10px;
   }
 
   #quiz-modal-content {
@@ -613,9 +622,9 @@ td {
   }
 
   #quiz-card {
-  	margin-top: 0;
+  	margin: 0 10px 10px 10px;
 		min-height: 180px;
-		width: 350px;
+		width: 60%;
   }
   #close-quiz {
   	position: absolute;
@@ -623,7 +632,13 @@ td {
   	right: 10%;
   	width: auto;
   }
+  .options {
+  	min-width: 110px;
+  }
 
+	.footer {
+		margin-top: 0;
+	}
 }
 
 
