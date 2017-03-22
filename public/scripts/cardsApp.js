@@ -84,8 +84,13 @@ $(document).ready(function() {
 });
 
 var activeCards = [];
-var currentCard = 0;
 var quizCard = {};
+var quiz = {
+  cards: []
+};
+var currentCard = 0;
+var randomCard = 0;
+var quizInitialLength = 0;
 
 function handleCheckBox() {
   var cardId = $(this).closest('.row').attr('id');
@@ -126,52 +131,84 @@ function clearAllCards() {
 
 function handleStartQuiz() {
   if (activeCards[currentCard]) {
-    $('#deck-count').html(activeCards.length);
+    var numArr = Array.apply(null, {length: activeCards.length}).map(Number.call, Number)
+    var randArr = numArr.sort(function() { return 0.5 - Math.random() });
+    quiz.cards = [];
+    currentCard = 0;
+    randomCard = 0;
+
+    for (var i=0; i<activeCards.length; i++) {
+      var newCard = {
+        id: activeCards[i],
+        randIndex: randArr[i]
+      }
+      quiz.cards.push(newCard);
+    }
+    quizInitialLength = quiz.cards.length;
+    $('#deck-count').html(quiz.cards.length);
     $('#quiz-modal').show();
-    getCardData(activeCards[currentCard]);
+    getCardData(quiz.cards[currentCard].id);
+
   } else {
     alert('No flash cards selected.')
   }
   $( "html" ).keydown(function(e) {
     if (e.keyCode === 37) {
+      e.preventDefault();
       changeCardBackward();
     } else if (e.keyCode === 39) {
+      e.preventDefault();
       changeCardForward();
     } else if (e.keyCode === 38) {
+      e.preventDefault();
       flipCard();
-    } else if (e.keyCode === 189) {
+    } else if (e.keyCode === 86) {
+      e.preventDefault();
       removeCardFromDeck();
+    } else if (e.keyCode === 40) {
+      e.preventDefault();
+      changeCardRandom();
     }
   });
 }
 
 function changeCardForward() {
   currentCard++;
-  if (currentCard >= activeCards.length) { currentCard = 0; }
-  getCardData(activeCards[currentCard]);
+  if (currentCard >= quiz.cards.length) { currentCard = 0; }
+  getCardData(quiz.cards[currentCard].id);
 }
 
 function changeCardBackward() {
   currentCard--;
-  if (currentCard < 0) { currentCard = activeCards.length-1; }
-  getCardData(activeCards[currentCard]);
+  if (currentCard < 0) { currentCard = quiz.cards.length-1; }
+  getCardData(quiz.cards[currentCard].id);
 }
 
 function changeCardRandom() {
-  currentCard = Math.floor(Math.random() * activeCards.length);
-  getCardData(activeCards[currentCard]);
+  if (quiz.cards.length <= 1) {
+    alert("This is the last card.")
+  } else {
+    var card;
+    do {
+      card = $.grep(quiz.cards, function(card){ return card.randIndex == randomCard; })[0];
+      randomCard++;
+      if (randomCard >= quizInitialLength) { randomCard = 0; }
+    }  while (quiz.cards.indexOf(card) == -1)
+
+    getCardData(quiz.cards[quiz.cards.indexOf(card)].id);
+  }
 }
 
 function removeCardFromDeck() {
-  if (activeCards.length > 1) {
-    if (currentCard === activeCards.length-1) {
-      activeCards.splice(currentCard , 1);
-      getCardData(activeCards[--currentCard]);
+  if (quiz.cards.length > 1) {
+    if (currentCard === quiz.cards.length-1) {
+      quiz.cards.splice(currentCard , 1);
+      getCardData(quiz.cards[--currentCard].id);
     } else {
-      activeCards.splice(currentCard , 1);
-      getCardData(activeCards[currentCard]);
+      quiz.cards.splice(quiz.cards , 1);
+      getCardData(quiz.cards[currentCard].id);
     }
-    $('#deck-count').html(activeCards.length);
+    $('#deck-count').html(quiz.cards.length);
   } else {
     alert('This is the last card!');
   }
@@ -184,7 +221,8 @@ function getCardData(id) {
     success: function(data) {
       quizCard = data;
       $('#quiz-card').html(quizCard.prompt);
-      $('#card-count').html(activeCards.indexOf(id)+1);
+      var card = $.grep(quiz.cards, function(card){ return card.id == quizCard._id; });
+      $('#card-count').html(quiz.cards.indexOf(card[0]) + 1);
     }
   });
 }
