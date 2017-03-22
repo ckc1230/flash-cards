@@ -530,22 +530,10 @@ td {
 	margin: 20px auto;
 }
 
-/* Portrait */
 @media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 667px) 
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: portrait) { 
-
-
-}
-
-/* Landscape */
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 736px) 
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: landscape) { 
+  and (min-device-width: 320px) 
+  and (max-device-width: 736px)
+  and (-webkit-min-device-pixel-ratio: 2) {
 
 	#fill-ins-container, #fill-ins-instructions-container, 
 	#terms-container, #terms-instructions-container,
@@ -558,6 +546,124 @@ td {
 		box-sizing: border-box;
 	}
 
+	.terms-row, .text-input, .definition-input {
+  	display: block;
+  	width: 90%;
+  	margin: 20px auto;
+  	width: 100%;
+  	min-width: 0;
+  }
+  .button-row {
+  	width: 70%;
+  	min-width: 0;
+  }
+
+  #edit-subject, #delete-card, #card-list-print {
+  	display: none;
+  }
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) { 
+
+	.header {
+		width: 90%;
+	}
+
+	.card {
+		max-width: 100px;
+		min-width: 0;
+		word-wrap:break-word;
+	}
+
+	 #show-cards-list {
+  	width: 100%;
+  	min-width: 0;
+  }
+
+  .options {
+  	display: none;
+  }
+
+  #select-all, #clear-all {
+  	margin: 10px;
+  	width: 30%;
+  	height: 40px;
+  	line-height: 40px;
+  	font-size: 20px;
+  }
+
+  #subjects-dropdown {
+		background: white;
+		width: 75%;
+		margin: 0 auto 10px auto;
+		display: block;
+		font-size: 25px;
+		height: 50px;
+		padding-left: 20px;
+  }
+	
+	#start-quiz {
+		height: 30px;
+  	line-height: 30px;
+  	font-size: 30px;
+  	width: 50%;
+	}
+	#start-quiz i {
+		vertical-align: middle;
+	}
+
+	#quiz-modal-content {
+		width: 85%;
+	}
+
+	.quiz-arrow {
+		position: absolute;
+		top: 125px;
+	}
+
+	#left-arrow {
+		left: 5%;
+	}
+
+	#right-arrow {
+		right: 5%;
+	}
+
+	#flip-card {
+		position: absolute;
+		top: 125px;
+		width: 50%;
+		left: 50%;
+		transform: translateX(-50%);
+		height: 60px;
+		line-height: 60px;
+		font-size: 50px;
+	}
+
+	#quiz-card {
+		width: 70%;
+		min-width: 0;
+		margin: 100px 0 0 0;
+	}
+
+	.half-button {
+		margin-top: 20px;
+	}
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) { 
+
 	.header {
 		height: 60px;
 	}
@@ -569,12 +675,6 @@ td {
 
   #options {
   	width: 100%;
-  }	
-
-  .terms-row {
-  	display: block;
-  	width: 90%;
-  	margin: 20px auto;
   }
 
   .nav-container {
@@ -593,10 +693,6 @@ td {
   	line-height: 40px;
   	font-size: 25px;
   	margin: 0 10px;
-  }
-
-  #edit-subject, #delete-card, #card-list-print {
-  	display: none;
   }
 
 	#subjects-dropdown {
