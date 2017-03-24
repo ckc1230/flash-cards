@@ -222,7 +222,7 @@ function getCardData(id) {
       quizCard = data;
       $('#quiz-card').html(quizCard.prompt);
       var card = $.grep(quiz.cards, function(card){ return card.id == quizCard._id; });
-      $('#card-count').html(quiz.cards.indexOf(card[0]) + 1);
+      // $('#card-count').html(quiz.cards.indexOf(card[0]) + 1);
     }
   });
 }
